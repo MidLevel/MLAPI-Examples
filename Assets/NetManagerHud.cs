@@ -1,4 +1,5 @@
 ﻿using MLAPI;
+using System.Net;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -38,11 +39,21 @@ public class NetManagerHud : MonoBehaviour {
             {
                 Address = "127.0.0.1",
                 Port = 7777,
+                UseUPnP = true,
+                UPnPCompleteCallback = OnUPnPComplete
             };
             config.Channels.Add("PositionUpdates", QosType.Reliable);
             config.MessageTypes.Add("PositionUpdate");
             config.MessageTypes.Add("SetClientPosition");
             NetworkingManager.singleton.StartHost(config);
         }
+    }
+
+    private void OnUPnPComplete(bool success, IPAddress ipAddress)
+    {
+        //Did UPNP succeed
+        Debug.Log(success);
+        //If it succeded. This is the public ip address
+        Debug.Log(ipAddress);
     }
 }
