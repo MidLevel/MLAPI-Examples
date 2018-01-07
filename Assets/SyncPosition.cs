@@ -14,7 +14,7 @@ public class SyncPosition : NetworkedBehaviour
         {
             RegisterMessageHandler("PositionUpdate", OnRecievePositionUpdate);
         }
-        else
+        if(isClient)
         {
             RegisterMessageHandler("SetClientPosition", OnSetClientPosition);
         }
