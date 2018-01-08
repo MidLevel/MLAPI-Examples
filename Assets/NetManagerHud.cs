@@ -39,8 +39,6 @@ public class NetManagerHud : MonoBehaviour {
             {
                 Address = "127.0.0.1",
                 Port = 7777,
-                UseUPnP = true,
-                UPnPCompleteCallback = OnUPnPComplete
             };
             config.Channels.Add("PositionUpdates", QosType.Reliable);
             config.MessageTypes.Add("PositionUpdate");

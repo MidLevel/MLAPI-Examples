@@ -48,13 +48,13 @@ public class SyncPosition : NetworkedBehaviour
         {
             using (BinaryReader reader = new BinaryReader(stream))
             {
-                uint networkId = reader.ReadUInt32();
-                if (networkId != objectNetworkId)
+                uint targetNetId = reader.ReadUInt32();
+                if (targetNetId != networkId)
                     return;
                 float x = reader.ReadSingle();
                 float y = reader.ReadSingle();
                 float z = reader.ReadSingle();
-                GetNetworkedObject(networkId).transform.position = new Vector3(x, y, z);
+                GetNetworkedObject(targetNetId).transform.position = new Vector3(x, y, z);
             }
         }
     }
@@ -78,7 +78,7 @@ public class SyncPosition : NetworkedBehaviour
             {
                 using (BinaryWriter writer = new BinaryWriter(writeStream))
                 {
-                    writer.Write(objectNetworkId);
+                    writer.Write(networkId);
                     writer.Write(transform.position.x);
                     writer.Write(transform.position.y);
                     writer.Write(transform.position.z);
