@@ -14,9 +14,10 @@ public class NetManagerHud : MonoBehaviour {
                 Address = "127.0.0.1",
                 Port = 7777,
             };
-            config.Channels.Add("PositionUpdates", QosType.Reliable);
-            config.MessageTypes.Add("PositionUpdate");
-            config.MessageTypes.Add("SetClientPosition");
+            config.RegisteredScenes = new System.Collections.Generic.List<string>();
+            config.RegisteredScenes.Add("MenuScene");
+            config.RegisteredScenes.Add("PlayScene");
+            config.EnableSceneSwitching = false;
             NetworkingManager.singleton.StartClient(config);
         }
 
@@ -27,9 +28,10 @@ public class NetManagerHud : MonoBehaviour {
                 Address = "127.0.0.1",
                 Port = 7777,
             };
-            config.Channels.Add("PositionUpdates", QosType.Reliable);
-            config.MessageTypes.Add("PositionUpdate");
-            config.MessageTypes.Add("SetClientPosition");
+            config.RegisteredScenes = new System.Collections.Generic.List<string>();
+            config.RegisteredScenes.Add("MenuScene");
+            config.RegisteredScenes.Add("PlayScene");
+            config.EnableSceneSwitching = false;
             NetworkingManager.singleton.StartServer(config);
         }
 
@@ -40,9 +42,10 @@ public class NetManagerHud : MonoBehaviour {
                 Address = "127.0.0.1",
                 Port = 7777,
             };
-            config.Channels.Add("PositionUpdates", QosType.Reliable);
-            config.MessageTypes.Add("PositionUpdate");
-            config.MessageTypes.Add("SetClientPosition");
+            config.RegisteredScenes = new System.Collections.Generic.List<string>();
+            config.RegisteredScenes.Add("MenuScene");
+            config.RegisteredScenes.Add("PlayScene");
+            config.EnableSceneSwitching = false;
             NetworkingManager.singleton.StartHost(config);
         }
     }
