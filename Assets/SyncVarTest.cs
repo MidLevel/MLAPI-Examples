@@ -1,7 +1,5 @@
-﻿using MLAPI;
-using MLAPI.Attributes;
-using System.Collections;
-using System.Collections.Generic;
+﻿using MLAPI.Attributes;
+using MLAPI.MonoBehaviours.Core;
 using UnityEngine;
 using UnityEngine.UI;
 

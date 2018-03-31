@@ -417,8 +417,8 @@ GameObject:
   - component: {fileID: 136804066522374734}
   - component: {fileID: 114698291518126988}
   - component: {fileID: 114898651689047266}
-  - component: {fileID: 114502122516735118}
   - component: {fileID: 114637313509609662}
+  - component: {fileID: 114072469942895892}
   - component: {fileID: 114807073951046190}
   - component: {fileID: 114246527999092684}
   m_Layer: 0
@@ -1996,7 +1996,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1880393464162266}
-  m_LocalRotation: {x: 0.53267515, y: 0.07034045, z: 0.83613265, w: -0.11041513}
+  m_LocalRotation: {x: 0.5326752, y: 0.070340455, z: 0.83613276, w: -0.110415146}
   m_LocalPosition: {x: 0.000022271464, y: -0.00006150465, z: 0.026027026}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2541,6 +2541,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114072469942895892
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1329915689972608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 210105714, guid: 1e8708ab61930764caf7a38dd98a6365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ServerOnly: 0
 --- !u!114 &114246527999092684
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2553,27 +2565,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SyncVarSyncDelay: 0.1
-  dirtyFields: 
   MySyncedName: 
   TextField: {fileID: 114806180797208620}
---- !u!114 &114502122516735118
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1329915689972608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 209037615, guid: 1e8708ab61930764caf7a38dd98a6365, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NetworkId: 0
-  OwnerClientId: -2
-  SpawnablePrefabIndex: 0
-  isPlayerObject: 0
-  ServerOnly: 0
-  isPooledObject: 0
-  PoolId: 0
 --- !u!114 &114637313509609662
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2586,7 +2579,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SyncVarSyncDelay: 0.1
-  dirtyFields: 
   SendsPerSecond: 20
   AssumeSyncedSends: 1
   InterpolatePosition: 1
@@ -2608,7 +2600,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SyncVarSyncDelay: 0.1
-  dirtyFields: 
 --- !u!114 &114806180797208620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2654,10 +2645,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SyncVarSyncDelay: 0.1
-  dirtyFields: 
+  EnableProximity: 0
+  ProximityRange: 50
   _animator: {fileID: 95538621675585322}
   parameterSendBits: 63
-  sendRate: 0.1
   param0: 
   param1: 
   param2: 

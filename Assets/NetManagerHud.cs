@@ -1,7 +1,7 @@
 ﻿using MLAPI;
+using MLAPI.MonoBehaviours.Core;
 using System.Net;
 using UnityEngine;
-using UnityEngine.Networking;
 
 public class NetManagerHud : MonoBehaviour {
 
@@ -18,6 +18,7 @@ public class NetManagerHud : MonoBehaviour {
             config.RegisteredScenes.Add("MenuScene");
             config.RegisteredScenes.Add("PlayScene");
             config.EnableSceneSwitching = false;
+            config.EnableEncryption = false;
             NetworkingManager.singleton.StartClient(config);
         }
 
@@ -32,6 +33,7 @@ public class NetManagerHud : MonoBehaviour {
             config.RegisteredScenes.Add("MenuScene");
             config.RegisteredScenes.Add("PlayScene");
             config.EnableSceneSwitching = false;
+            config.EnableEncryption = false;
             NetworkingManager.singleton.StartServer(config);
         }
 
@@ -46,6 +48,7 @@ public class NetManagerHud : MonoBehaviour {
             config.RegisteredScenes.Add("MenuScene");
             config.RegisteredScenes.Add("PlayScene");
             config.EnableSceneSwitching = false;
+            config.EnableEncryption = false;
             NetworkingManager.singleton.StartHost(config);
         }
     }

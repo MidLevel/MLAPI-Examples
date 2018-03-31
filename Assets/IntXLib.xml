@@ -1,0 +1,2526 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>IntXLib</name>
+    </assembly>
+    <members>
+        <member name="T:IntXLib.DigitConverter">
+            <summary>
+            Converts <see cref="T:IntXLib.IntX"/> digits to/from byte array.
+            </summary>
+        </member>
+        <member name="M:IntXLib.DigitConverter.ToBytes(System.UInt32[])">
+            <summary>
+            Converts big integer digits to bytes.
+            </summary>
+            <param name="digits"><see cref="T:IntXLib.IntX"/> digits.</param>
+            <returns>Resulting bytes.</returns>
+            <remarks>
+            Digits can be obtained using <see cref="M:IntXLib.IntX.GetInternalState(System.UInt32[]@,System.Boolean@)"/> method.
+            </remarks>
+        </member>
+        <member name="M:IntXLib.DigitConverter.FromBytes(System.Byte[])">
+            <summary>
+            Converts bytes to big integer digits.
+            </summary>
+            <param name="bytes">Bytes.</param>
+            <returns>Resulting <see cref="T:IntXLib.IntX"/> digits.</returns>
+            <remarks>
+            Big integer can be created from digits using <see cref="M:IntXLib.IntX.#ctor(System.UInt32[],System.Boolean)"/> constructor.
+            </remarks>
+        </member>
+        <member name="T:IntXLib.AutoNewtonDivider">
+            <summary>
+            Divides using Newton approximation approach.
+            </summary>
+        </member>
+        <member name="T:IntXLib.DividerBase">
+            <summary>
+            Base class for dividers.
+            Contains default implementation of divide operation over <see cref="T:IntXLib.IntX"/> instances.
+            </summary>
+        </member>
+        <member name="T:IntXLib.IDivider">
+            <summary>
+            Divider class interface.
+            </summary>
+        </member>
+        <member name="M:IntXLib.IDivider.DivMod(IntXLib.IntX,IntXLib.IntX,IntXLib.IntX@,IntXLib.DivModResultFlags)">
+            <summary>
+            Divides one <see cref="T:IntXLib.IntX"/> by another.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <param name="modRes">Remainder big integer.</param>
+            <param name="resultFlags">Which operation results to return.</param>
+            <returns>Divident big integer.</returns>
+        </member>
+        <member name="M:IntXLib.IDivider.DivMod(System.UInt32[],System.UInt32[],System.UInt32@,System.UInt32[],System.UInt32[],System.UInt32,System.UInt32[],IntXLib.DivModResultFlags,System.Int32)">
+            <summary>
+            Divides two big integers.
+            Also modifies <paramref name="digits1" /> and <paramref name="length1"/> (it will contain remainder).
+            </summary>
+            <param name="digits1">First big integer digits.</param>
+            <param name="digitsBuffer1">Buffer for first big integer digits. May also contain remainder. Can be null - in this case it's created if necessary.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="digits2">Second big integer digits.</param>
+            <param name="digitsBuffer2">Buffer for second big integer digits. Only temporarily used. Can be null - in this case it's created if necessary.</param>
+            <param name="length2">Second big integer length.</param>
+            <param name="digitsRes">Resulting big integer digits.</param>
+            <param name="resultFlags">Which operation results to return.</param>
+            <param name="cmpResult">Big integers comparsion result (pass -2 if omitted).</param>
+            <returns>Resulting big integer length.</returns>
+        </member>
+        <member name="M:IntXLib.IDivider.DivMod(System.UInt32*,System.UInt32*,System.UInt32@,System.UInt32*,System.UInt32*,System.UInt32,System.UInt32*,IntXLib.DivModResultFlags,System.Int32)">
+            <summary>
+            Divides two big integers.
+            Also modifies <paramref name="digitsPtr1" /> and <paramref name="length1"/> (it will contain remainder).
+            </summary>
+            <param name="digitsPtr1">First big integer digits.</param>
+            <param name="digitsBufferPtr1">Buffer for first big integer digits. May also contain remainder.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="digitsPtr2">Second big integer digits.</param>
+            <param name="digitsBufferPtr2">Buffer for second big integer digits. Only temporarily used.</param>
+            <param name="length2">Second big integer length.</param>
+            <param name="digitsResPtr">Resulting big integer digits.</param>
+            <param name="resultFlags">Which operation results to return.</param>
+            <param name="cmpResult">Big integers comparsion result (pass -2 if omitted).</param>
+            <returns>Resulting big integer length.</returns>
+        </member>
+        <member name="M:IntXLib.DividerBase.DivMod(IntXLib.IntX,IntXLib.IntX,IntXLib.IntX@,IntXLib.DivModResultFlags)">
+            <summary>
+            Divides one <see cref="T:IntXLib.IntX"/> by another.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <param name="modRes">Remainder big integer.</param>
+            <param name="resultFlags">Which operation results to return.</param>
+            <returns>Divident big integer.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="int1"/> or <paramref name="int2"/> is a null reference.</exception>
+            <exception cref="T:System.DivideByZeroException"><paramref name="int2"/> equals zero.</exception>
+        </member>
+        <member name="M:IntXLib.DividerBase.DivMod(System.UInt32[],System.UInt32[],System.UInt32@,System.UInt32[],System.UInt32[],System.UInt32,System.UInt32[],IntXLib.DivModResultFlags,System.Int32)">
+            <summary>
+            Divides two big integers.
+            Also modifies <paramref name="digits1" /> and <paramref name="length1"/> (it will contain remainder).
+            </summary>
+            <param name="digits1">First big integer digits.</param>
+            <param name="digitsBuffer1">Buffer for first big integer digits. May also contain remainder. Can be null - in this case it's created if necessary.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="digits2">Second big integer digits.</param>
+            <param name="digitsBuffer2">Buffer for second big integer digits. Only temporarily used. Can be null - in this case it's created if necessary.</param>
+            <param name="length2">Second big integer length.</param>
+            <param name="digitsRes">Resulting big integer digits.</param>
+            <param name="resultFlags">Which operation results to return.</param>
+            <param name="cmpResult">Big integers comparsion result (pass -2 if omitted).</param>
+            <returns>Resulting big integer length.</returns>
+        </member>
+        <member name="M:IntXLib.DividerBase.DivMod(System.UInt32*,System.UInt32*,System.UInt32@,System.UInt32*,System.UInt32*,System.UInt32,System.UInt32*,IntXLib.DivModResultFlags,System.Int32)">
+            <summary>
+            Divides two big integers.
+            Also modifies <paramref name="digitsPtr1" /> and <paramref name="length1"/> (it will contain remainder).
+            </summary>
+            <param name="digitsPtr1">First big integer digits.</param>
+            <param name="digitsBufferPtr1">Buffer for first big integer digits. May also contain remainder.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="digitsPtr2">Second big integer digits.</param>
+            <param name="digitsBufferPtr2">Buffer for second big integer digits. Only temporarily used.</param>
+            <param name="length2">Second big integer length.</param>
+            <param name="digitsResPtr">Resulting big integer digits.</param>
+            <param name="resultFlags">Which operation results to return.</param>
+            <param name="cmpResult">Big integers comparsion result (pass -2 if omitted).</param>
+            <returns>Resulting big integer length.</returns>
+        </member>
+        <member name="M:IntXLib.AutoNewtonDivider.#ctor(IntXLib.IDivider)">
+            <summary>
+            Creates new <see cref="T:IntXLib.AutoNewtonDivider"/> instance.
+            </summary>
+            <param name="classicDivider">Divider to use if Newton approach is unapplicatible.</param>
+        </member>
+        <member name="M:IntXLib.AutoNewtonDivider.IsClassicAlgorithmNeeded(System.UInt32,System.UInt32)">
+            <summary>
+            Returns true if it's better to use classic algorithm for given big integers.
+            </summary>
+            <param name="length1">First big integer length.</param>
+            <param name="length2">Second big integer length.</param>
+            <returns>True if classic algorithm is better.</returns>
+        </member>
+        <member name="M:IntXLib.AutoNewtonDivider.DivMod(System.UInt32[],System.UInt32[],System.UInt32@,System.UInt32[],System.UInt32[],System.UInt32,System.UInt32[],IntXLib.DivModResultFlags,System.Int32)">
+            <summary>
+            Divides two big integers.
+            Also modifies <paramref name="digits1" /> and <paramref name="length1"/> (it will contain remainder).
+            </summary>
+            <param name="digits1">First big integer digits.</param>
+            <param name="digitsBuffer1">Buffer for first big integer digits. May also contain remainder. Can be null - in this case it's created if necessary.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="digits2">Second big integer digits.</param>
+            <param name="digitsBuffer2">Buffer for second big integer digits. Only temporarily used. Can be null - in this case it's created if necessary.</param>
+            <param name="length2">Second big integer length.</param>
+            <param name="digitsRes">Resulting big integer digits.</param>
+            <param name="resultFlags">Which operation results to return.</param>
+            <param name="cmpResult">Big integers comparsion result (pass -2 if omitted).</param>
+            <returns>Resulting big integer length.</returns>
+        </member>
+        <member name="M:IntXLib.AutoNewtonDivider.DivMod(System.UInt32*,System.UInt32*,System.UInt32@,System.UInt32*,System.UInt32*,System.UInt32,System.UInt32*,IntXLib.DivModResultFlags,System.Int32)">
+            <summary>
+            Divides two big integers.
+            Also modifies <paramref name="digitsPtr1" /> and <paramref name="length1"/> (it will contain remainder).
+            </summary>
+            <param name="digitsPtr1">First big integer digits.</param>
+            <param name="digitsBufferPtr1">Buffer for first big integer digits. May also contain remainder.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="digitsPtr2">Second big integer digits.</param>
+            <param name="digitsBufferPtr2">Buffer for second big integer digits. Only temporarily used.</param>
+            <param name="length2">Second big integer length.</param>
+            <param name="digitsResPtr">Resulting big integer digits.</param>
+            <param name="resultFlags">Which operation results to return.</param>
+            <param name="cmpResult">Big integers comparsion result (pass -2 if omitted).</param>
+            <returns>Resulting big integer length.</returns>
+        </member>
+        <member name="T:IntXLib.ClassicDivider">
+            <summary>
+            Divider using "classic" algorithm.
+            </summary>
+        </member>
+        <member name="M:IntXLib.ClassicDivider.DivMod(System.UInt32[],System.UInt32[],System.UInt32@,System.UInt32[],System.UInt32[],System.UInt32,System.UInt32[],IntXLib.DivModResultFlags,System.Int32)">
+            <summary>
+            Divides two big integers.
+            Also modifies <paramref name="digits1" /> and <paramref name="length1"/> (it will contain remainder).
+            </summary>
+            <param name="digits1">First big integer digits.</param>
+            <param name="digitsBuffer1">Buffer for first big integer digits. May also contain remainder. Can be null - in this case it's created if necessary.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="digits2">Second big integer digits.</param>
+            <param name="digitsBuffer2">Buffer for second big integer digits. Only temporarily used. Can be null - in this case it's created if necessary.</param>
+            <param name="length2">Second big integer length.</param>
+            <param name="digitsRes">Resulting big integer digits.</param>
+            <param name="resultFlags">Which operation results to return.</param>
+            <param name="cmpResult">Big integers comparsion result (pass -2 if omitted).</param>
+            <returns>Resulting big integer length.</returns>
+        </member>
+        <member name="M:IntXLib.ClassicDivider.DivMod(System.UInt32*,System.UInt32*,System.UInt32@,System.UInt32*,System.UInt32*,System.UInt32,System.UInt32*,IntXLib.DivModResultFlags,System.Int32)">
+            <summary>
+            Divides two big integers.
+            Also modifies <paramref name="digitsPtr1" /> and <paramref name="length1"/> (it will contain remainder).
+            </summary>
+            <param name="digitsPtr1">First big integer digits.</param>
+            <param name="digitsBufferPtr1">Buffer for first big integer digits. May also contain remainder.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="digitsPtr2">Second big integer digits.</param>
+            <param name="digitsBufferPtr2">Buffer for second big integer digits. Only temporarily used.</param>
+            <param name="length2">Second big integer length.</param>
+            <param name="digitsResPtr">Resulting big integer digits.</param>
+            <param name="resultFlags">Which operation results to return.</param>
+            <param name="cmpResult">Big integers comparsion result (pass -2 if omitted).</param>
+            <returns>Resulting big integer length.</returns>
+        </member>
+        <member name="T:IntXLib.DivideManager">
+            <summary>
+            Used to retrieve needed divider.
+            </summary>
+        </member>
+        <member name="F:IntXLib.DivideManager.ClassicDivider">
+            <summary>
+            Classic divider instance.
+            </summary>
+        </member>
+        <member name="F:IntXLib.DivideManager.AutoNewtonDivider">
+            <summary>
+            Newton divider instance.
+            </summary>
+        </member>
+        <member name="M:IntXLib.DivideManager.GetDivider(IntXLib.DivideMode)">
+            <summary>
+            Returns divider instance for given divide mode.
+            </summary>
+            <param name="mode">Divide mode.</param>
+            <returns>Divider instance.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="mode"/> is out of range.</exception>
+        </member>
+        <member name="M:IntXLib.DivideManager.GetCurrentDivider">
+            <summary>
+            Returns current divider instance.
+            </summary>
+            <returns>Current divider instance.</returns>
+        </member>
+        <member name="T:IntXLib.NewtonHelper">
+            <summary>
+            Contains helping methods for fast division
+            using Newton approximation approach and fast multiplication.
+            </summary>
+        </member>
+        <member name="M:IntXLib.NewtonHelper.GetIntegerOpposite(System.UInt32*,System.UInt32,System.UInt32,System.UInt32*,System.UInt32@,System.UInt64@)">
+            <summary>
+            Generates integer opposite to the given one using approximation.
+            Uses algorithm from Khuth vol. 2 3rd Edition (4.3.3).
+            </summary>
+            <param name="digitsPtr">Initial big integer digits.</param>
+            <param name="length">Initial big integer length.</param>
+            <param name="maxLength">Precision length.</param>
+            <param name="bufferPtr">Buffer in which shifted big integer may be stored.</param>
+            <param name="newLength">Resulting big integer length.</param>
+            <param name="rightShift">How much resulting big integer is shifted to the left (or: must be shifted to the right).</param>
+            <returns>Resulting big integer digits.</returns>
+        </member>
+        <member name="T:IntXLib.Bits">
+            <summary>
+            Contains helping methods to with with bits in dword (<see cref="T:System.UInt32"/>).
+            </summary>
+        </member>
+        <member name="M:IntXLib.Bits.Nlz(System.UInt32)">
+            <summary>
+            Returns number of leading zero bits in int.
+            </summary>
+            <param name="x">Int value.</param>
+            <returns>Number of leading zero bits.</returns>
+        </member>
+        <member name="M:IntXLib.Bits.Msb(System.UInt32)">
+            <summary>
+            Counts position of the most significant bit in int.
+            Can also be used as Floor(Log2(<paramref name="x" />)).
+            </summary>
+            <param name="x">Int value.</param>
+            <returns>Position of the most significant one bit (-1 if all zeroes).</returns>
+        </member>
+        <member name="M:IntXLib.Bits.CeilLog2(System.UInt32)">
+            <summary>
+            Ceil(Log2(<paramref name="x" />)).
+            </summary>
+            <param name="x">Int value.</param>
+            <returns>Ceil of the Log2.</returns>
+        </member>
+        <member name="T:IntXLib.IntX">
+            <summary>
+            Numeric class which represents arbitrary-precision integers.
+            </summary>
+        </member>
+        <member name="M:IntXLib.IntX.#ctor">
+            <summary>
+            Creates new big integer with zero value.
+            </summary>
+        </member>
+        <member name="M:IntXLib.IntX.#ctor(System.Int32)">
+            <summary>
+            Creates new big integer from integer value.
+            </summary>
+            <param name="value">Integer value to create big integer from.</param>
+        </member>
+        <member name="M:IntXLib.IntX.#ctor(System.UInt32)">
+            <summary>
+            Creates new big integer from unsigned integer value.
+            </summary>
+            <param name="value">Unsigned integer value to create big integer from.</param>
+        </member>
+        <member name="M:IntXLib.IntX.#ctor(System.Int64)">
+            <summary>
+            Creates new big integer from long value.
+            </summary>
+            <param name="value">Long value to create big integer from.</param>
+        </member>
+        <member name="M:IntXLib.IntX.#ctor(System.UInt64)">
+            <summary>
+            Creates new big integer from unsigned long value.
+            </summary>
+            <param name="value">Unsigned long value to create big integer from.</param>
+        </member>
+        <member name="M:IntXLib.IntX.#ctor(System.UInt32[],System.Boolean)">
+            <summary>
+            Creates new big integer from array of it's "digits".
+            Digit with lower index has less weight.
+            </summary>
+            <param name="digits">Array of <see cref="T:IntXLib.IntX"/> digits.</param>
+            <param name="negative">True if this number is negative.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="digits"/> is a null reference.</exception>
+        </member>
+        <member name="M:IntXLib.IntX.#ctor(System.String)">
+            <summary>
+            Creates new <see cref="T:IntXLib.IntX"/> from string.
+            </summary>
+            <param name="value">Number as string.</param>
+        </member>
+        <member name="M:IntXLib.IntX.#ctor(System.String,System.UInt32)">
+            <summary>
+            Creates new <see cref="T:IntXLib.IntX"/> from string.
+            </summary>
+            <param name="value">Number as string.</param>
+            <param name="numberBase">Number base.</param>
+        </member>
+        <member name="M:IntXLib.IntX.#ctor(IntXLib.IntX)">
+            <summary>
+            Copy constructor.
+            </summary>
+            <param name="value">Value to copy from.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value"/> is a null reference.</exception>
+        </member>
+        <member name="M:IntXLib.IntX.#ctor(System.UInt32,System.Boolean)">
+            <summary>
+            Creates new empty big integer with desired sign and length.
+            
+            For internal use.
+            </summary>
+            <param name="length">Desired digits length.</param>
+            <param name="negative">Desired integer sign.</param>
+        </member>
+        <member name="M:IntXLib.IntX.#ctor(System.UInt32[],System.Boolean,System.UInt32)">
+            <summary>
+            Creates new big integer from array of it's "digits" but with given length.
+            Digit with lower index has less weight.
+            
+            For internal use.
+            </summary>
+            <param name="digits">Array of <see cref="T:IntXLib.IntX"/> digits.</param>
+            <param name="negative">True if this number is negative.</param>
+            <param name="length">Length to use for internal digits array.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="digits"/> is a null reference.</exception>
+        </member>
+        <member name="M:IntXLib.IntX.op_Equality(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Compares two <see cref="T:IntXLib.IntX"/> objects and returns true if their internal state is equal.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>True if equals.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Equality(IntXLib.IntX,System.Int32)">
+            <summary>
+            Compares <see cref="T:IntXLib.IntX"/> object with integer and returns true if their internal state is equal.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second integer.</param>
+            <returns>True if equals.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Equality(System.Int32,IntXLib.IntX)">
+            <summary>
+            Compares integer with <see cref="T:IntXLib.IntX"/> object and returns true if their internal state is equal.
+            </summary>
+            <param name="int1">First integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>True if equals.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Equality(IntXLib.IntX,System.UInt32)">
+            <summary>
+            Compares <see cref="T:IntXLib.IntX"/> object with unsinged integer and returns true if their internal state is equal.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second unsinged integer.</param>
+            <returns>True if equals.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Equality(System.UInt32,IntXLib.IntX)">
+            <summary>
+            Compares unsinged integer with <see cref="T:IntXLib.IntX"/> object and returns true if their internal state is equal.
+            </summary>
+            <param name="int1">First unsinged integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>True if equals.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Inequality(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Compares two <see cref="T:IntXLib.IntX"/> objects and returns true if their internal state is not equal.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>True if not equals.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Inequality(IntXLib.IntX,System.Int32)">
+            <summary>
+            Compares <see cref="T:IntXLib.IntX"/> object with integer and returns true if their internal state is not equal.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second integer.</param>
+            <returns>True if not equals.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Inequality(System.Int32,IntXLib.IntX)">
+            <summary>
+            Compares integer with <see cref="T:IntXLib.IntX"/> object and returns true if their internal state is not equal.
+            </summary>
+            <param name="int1">First integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>True if not equals.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Inequality(IntXLib.IntX,System.UInt32)">
+            <summary>
+            Compares <see cref="T:IntXLib.IntX"/> object with unsigned integer and returns true if their internal state is not equal.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second unsigned integer.</param>
+            <returns>True if not equals.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Inequality(System.UInt32,IntXLib.IntX)">
+            <summary>
+            Compares unsigned integer with <see cref="T:IntXLib.IntX"/> object and returns true if their internal state is not equal.
+            </summary>
+            <param name="int1">First unsigned integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>True if not equals.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_GreaterThan(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Compares two <see cref="T:IntXLib.IntX"/> objects and returns true if first is greater.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>True if first is greater.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_GreaterThan(IntXLib.IntX,System.Int32)">
+            <summary>
+            Compares <see cref="T:IntXLib.IntX"/> object with integer and returns true if first is greater.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second integer.</param>
+            <returns>True if first is greater.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_GreaterThan(System.Int32,IntXLib.IntX)">
+            <summary>
+            Compares integer with <see cref="T:IntXLib.IntX"/> object and returns true if first is greater.
+            </summary>
+            <param name="int1">First integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>True if first is greater.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_GreaterThan(IntXLib.IntX,System.UInt32)">
+            <summary>
+            Compares <see cref="T:IntXLib.IntX"/> object with unsigned integer and returns true if first is greater.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second unsigned integer.</param>
+            <returns>True if first is greater.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_GreaterThan(System.UInt32,IntXLib.IntX)">
+            <summary>
+            Compares unsigned integer with <see cref="T:IntXLib.IntX"/> object and returns true if first is greater.
+            </summary>
+            <param name="int1">First unsigned integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>True if first is greater.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_GreaterThanOrEqual(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Compares two <see cref="T:IntXLib.IntX"/> objects and returns true if first is greater or equal.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>True if first is greater or equal.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_GreaterThanOrEqual(IntXLib.IntX,System.Int32)">
+            <summary>
+            Compares <see cref="T:IntXLib.IntX"/> object with integer and returns true if first is greater or equal.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second integer.</param>
+            <returns>True if first is greater or equal.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_GreaterThanOrEqual(System.Int32,IntXLib.IntX)">
+            <summary>
+            Compares integer with <see cref="T:IntXLib.IntX"/> object and returns true if first is greater or equal.
+            </summary>
+            <param name="int1">First integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>True if first is greater or equal.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_GreaterThanOrEqual(IntXLib.IntX,System.UInt32)">
+            <summary>
+            Compares <see cref="T:IntXLib.IntX"/> object with unsinged integer and returns true if first is greater or equal.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second unsinged integer.</param>
+            <returns>True if first is greater or equal.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_GreaterThanOrEqual(System.UInt32,IntXLib.IntX)">
+            <summary>
+            Compares unsinged integer with <see cref="T:IntXLib.IntX"/> object and returns true if first is greater or equal.
+            </summary>
+            <param name="int1">First unsinged integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>True if first is greater or equal.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_LessThan(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Compares two <see cref="T:IntXLib.IntX"/> objects and returns true if first is lighter.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>True if first is lighter.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_LessThan(IntXLib.IntX,System.Int32)">
+            <summary>
+            Compares <see cref="T:IntXLib.IntX"/> object with integer and returns true if first is lighter.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second integer.</param>
+            <returns>True if first is lighter.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_LessThan(System.Int32,IntXLib.IntX)">
+            <summary>
+            Compares integer with <see cref="T:IntXLib.IntX"/> object and returns true if first is lighter.
+            </summary>
+            <param name="int1">First integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>True if first is lighter.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_LessThan(IntXLib.IntX,System.UInt32)">
+            <summary>
+            Compares <see cref="T:IntXLib.IntX"/> object with unsinged integer and returns true if first is lighter.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second unsinged integer.</param>
+            <returns>True if first is lighter.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_LessThan(System.UInt32,IntXLib.IntX)">
+            <summary>
+            Compares unsinged integer with <see cref="T:IntXLib.IntX"/> object and returns true if first is lighter.
+            </summary>
+            <param name="int1">First unsinged integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>True if first is lighter.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_LessThanOrEqual(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Compares two <see cref="T:IntXLib.IntX"/> objects and returns true if first is lighter or equal.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>True if first is lighter or equal.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_LessThanOrEqual(IntXLib.IntX,System.Int32)">
+            <summary>
+            Compares <see cref="T:IntXLib.IntX"/> object with integer and returns true if first is lighter or equal.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second integer.</param>
+            <returns>True if first is lighter or equal.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_LessThanOrEqual(System.Int32,IntXLib.IntX)">
+            <summary>
+            Compares integer with <see cref="T:IntXLib.IntX"/> object and returns true if first is lighter or equal.
+            </summary>
+            <param name="int1">First integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>True if first is lighter or equal.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_LessThanOrEqual(IntXLib.IntX,System.UInt32)">
+            <summary>
+            Compares <see cref="T:IntXLib.IntX"/> object with unsinged integer and returns true if first is lighter or equal.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second unsinged integer.</param>
+            <returns>True if first is lighter or equal.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_LessThanOrEqual(System.UInt32,IntXLib.IntX)">
+            <summary>
+            Compares unsinged integer with <see cref="T:IntXLib.IntX"/> object and returns true if first is lighter or equal.
+            </summary>
+            <param name="int1">First unsinged integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>True if first is lighter or equal.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Addition(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Adds one <see cref="T:IntXLib.IntX"/> object to another.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>Addition result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Subtraction(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Subtracts one <see cref="T:IntXLib.IntX"/> object from another.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>Subtraction result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Multiply(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Multiplies one <see cref="T:IntXLib.IntX"/> object on another.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>Multiply result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Division(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Divides one <see cref="T:IntXLib.IntX"/> object by another.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>Division result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Modulus(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Divides one <see cref="T:IntXLib.IntX"/> object by another and returns division modulo.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>Modulo result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_LeftShift(IntXLib.IntX,System.Int32)">
+            <summary>
+            Shifts <see cref="T:IntXLib.IntX"/> object on selected bits count to the left.
+            </summary>
+            <param name="intX">Big integer.</param>
+            <param name="shift">Bits count.</param>
+            <returns>Shifting result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_RightShift(IntXLib.IntX,System.Int32)">
+            <summary>
+            Shifts <see cref="T:IntXLib.IntX"/> object on selected bits count to the right.
+            </summary>
+            <param name="intX">Big integer.</param>
+            <param name="shift">Bits count.</param>
+            <returns>Shifting result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_UnaryPlus(IntXLib.IntX)">
+            <summary>
+            Returns the same <see cref="T:IntXLib.IntX"/> value.
+            </summary>
+            <param name="value">Initial value.</param>
+            <returns>The same value, but new object.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value"/> is a null reference.</exception>
+        </member>
+        <member name="M:IntXLib.IntX.op_UnaryNegation(IntXLib.IntX)">
+            <summary>
+            Returns the same <see cref="T:IntXLib.IntX"/> value, but with other sign.
+            </summary>
+            <param name="value">Initial value.</param>
+            <returns>The same value, but with other sign.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value"/> is a null reference.</exception>
+        </member>
+        <member name="M:IntXLib.IntX.op_Increment(IntXLib.IntX)">
+            <summary>
+            Returns increased <see cref="T:IntXLib.IntX"/> value.
+            </summary>
+            <param name="value">Initial value.</param>
+            <returns>Increased value.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value"/> is a null reference.</exception>
+        </member>
+        <member name="M:IntXLib.IntX.op_Decrement(IntXLib.IntX)">
+            <summary>
+            Returns decreased <see cref="T:IntXLib.IntX"/> value.
+            </summary>
+            <param name="value">Initial value.</param>
+            <returns>Decreased value.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value"/> is a null reference.</exception>
+        </member>
+        <member name="M:IntXLib.IntX.op_BitwiseOr(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Performs bitwise OR for two big integers.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>Resulting big integer.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_BitwiseAnd(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Performs bitwise AND for two big integers.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>Resulting big integer.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_ExclusiveOr(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Performs bitwise XOR for two big integers.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>Resulting big integer.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_OnesComplement(IntXLib.IntX)">
+            <summary>
+            Performs bitwise NOT for big integer.
+            </summary>
+            <param name="value">Big integer.</param>
+            <returns>Resulting big integer.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Implicit(System.Int32)~IntXLib.IntX">
+            <summary>
+            Implicitly converts <see cref="T:System.Int32"/> to <see cref="T:IntXLib.IntX"/>.
+            </summary>
+            <param name="value">Value to convert.</param>
+            <returns>Conversion result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Implicit(System.UInt32)~IntXLib.IntX">
+            <summary>
+            Implicitly converts <see cref="T:System.UInt32"/> to <see cref="T:IntXLib.IntX"/>.
+            </summary>
+            <param name="value">Value to convert.</param>
+            <returns>Conversion result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Implicit(System.UInt16)~IntXLib.IntX">
+            <summary>
+            Implicitly converts <see cref="T:System.UInt16"/> to <see cref="T:IntXLib.IntX"/>.
+            </summary>
+            <param name="value">Value to convert.</param>
+            <returns>Conversion result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Implicit(System.Int64)~IntXLib.IntX">
+            <summary>
+            Implicitly converts <see cref="T:System.Int64"/> to <see cref="T:IntXLib.IntX"/>.
+            </summary>
+            <param name="value">Value to convert.</param>
+            <returns>Conversion result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Implicit(System.UInt64)~IntXLib.IntX">
+            <summary>
+            Implicitly converts <see cref="T:System.UInt64"/> to <see cref="T:IntXLib.IntX"/>.
+            </summary>
+            <param name="value">Value to convert.</param>
+            <returns>Conversion result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Explicit(IntXLib.IntX)~System.Int32">
+            <summary>
+            Explicitly converts <see cref="T:IntXLib.IntX"/> to <see cref="T:System.Int32"/>.
+            </summary>
+            <param name="value">Value to convert.</param>
+            <returns>Conversion result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Explicit(IntXLib.IntX)~System.UInt32">
+            <summary>
+            Explicitly converts <see cref="T:IntXLib.IntX"/> to <see cref="T:System.UInt32"/>.
+            </summary>
+            <param name="value">Value to convert.</param>
+            <returns>Conversion result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Explicit(IntXLib.IntX)~System.Int64">
+            <summary>
+            Explicitly converts <see cref="T:IntXLib.IntX"/> to <see cref="T:System.Int64"/>.
+            </summary>
+            <param name="value">Value to convert.</param>
+            <returns>Conversion result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Explicit(IntXLib.IntX)~System.UInt64">
+            <summary>
+            Explicitly converts <see cref="T:IntXLib.IntX"/> to <see cref="T:System.UInt64"/>.
+            </summary>
+            <param name="value">Value to convert.</param>
+            <returns>Conversion result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.op_Explicit(IntXLib.IntX)~System.UInt16">
+            <summary>
+            Explicitly converts <see cref="T:IntXLib.IntX"/> to <see cref="T:System.UInt16"/>.
+            </summary>
+            <param name="value">Value to convert.</param>
+            <returns>Conversion result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.Multiply(IntXLib.IntX,IntXLib.IntX,IntXLib.MultiplyMode)">
+            <summary>
+            Multiplies one <see cref="T:IntXLib.IntX"/> object on another.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <param name="mode">Multiply mode set explicitly.</param>
+            <returns>Multiply result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.Divide(IntXLib.IntX,IntXLib.IntX,IntXLib.DivideMode)">
+            <summary>
+            Divides one <see cref="T:IntXLib.IntX"/> object by another.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <param name="mode">Divide mode.</param>
+            <returns>Division result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.Modulo(IntXLib.IntX,IntXLib.IntX,IntXLib.DivideMode)">
+            <summary>
+            Divides one <see cref="T:IntXLib.IntX"/> object by another and returns division modulo.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <param name="mode">Divide mode.</param>
+            <returns>Modulo result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.DivideModulo(IntXLib.IntX,IntXLib.IntX,IntXLib.IntX@)">
+            <summary>
+            Divides one <see cref="T:IntXLib.IntX"/> object on another.
+            Returns both divident and remainder
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <param name="modRes">Remainder big integer.</param>
+            <returns>Division result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.DivideModulo(IntXLib.IntX,IntXLib.IntX,IntXLib.IntX@,IntXLib.DivideMode)">
+            <summary>
+            Divides one <see cref="T:IntXLib.IntX"/> object on another.
+            Returns both divident and remainder
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <param name="modRes">Remainder big integer.</param>
+            <param name="mode">Divide mode.</param>
+            <returns>Division result.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.Pow(IntXLib.IntX,System.UInt32)">
+            <summary>
+            Returns a specified big integer raised to the specified power.
+            </summary>
+            <param name="value">Number to raise.</param>
+            <param name="power">Power.</param>
+            <returns>Number in given power.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.Pow(IntXLib.IntX,System.UInt32,IntXLib.MultiplyMode)">
+            <summary>
+            Returns a specified big integer raised to the specified power.
+            </summary>
+            <param name="value">Number to raise.</param>
+            <param name="power">Power.</param>
+            <param name="multiplyMode">Multiply mode set explicitly.</param>
+            <returns>Number in given power.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.ToString">
+            <summary>
+            Returns decimal string representation of this <see cref="T:IntXLib.IntX"/> object.
+            </summary>
+            <returns>Decimal number in string.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.ToString(System.UInt32)">
+            <summary>
+            Returns string representation of this <see cref="T:IntXLib.IntX"/> object in given base.
+            </summary>
+            <param name="numberBase">Base of system in which to do output.</param>
+            <returns>Object string representation.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.ToString(System.UInt32,System.Boolean)">
+            <summary>
+            Returns string representation of this <see cref="T:IntXLib.IntX"/> object in given base.
+            </summary>
+            <param name="numberBase">Base of system in which to do output.</param>
+            <param name="upperCase">Use uppercase for bases from 11 to 16 (which use letters A-F).</param>
+            <returns>Object string representation.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.ToString(System.UInt32,System.String)">
+            <summary>
+            Returns string representation of this <see cref="T:IntXLib.IntX"/> object in given base using custom alphabet.
+            </summary>
+            <param name="numberBase">Base of system in which to do output.</param>
+            <param name="alphabet">Alphabet which contains chars used to represent big integer, char position is coresponding digit value.</param>
+            <returns>Object string representation.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.Parse(System.String)">
+            <summary>
+            Parses provided string representation of <see cref="T:IntXLib.IntX"/> object in decimal base.
+            If number starts from "0" then it's treated as octal; if number starts fropm "0x"
+            then it's treated as hexadecimal.
+            </summary>
+            <param name="value">Number as string.</param>
+            <returns>Parsed object.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.Parse(System.String,System.UInt32)">
+            <summary>
+            Parses provided string representation of <see cref="T:IntXLib.IntX"/> object.
+            </summary>
+            <param name="value">Number as string.</param>
+            <param name="numberBase">Number base.</param>
+            <returns>Parsed object.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.Parse(System.String,System.UInt32,System.String)">
+            <summary>
+            Parses provided string representation of <see cref="T:IntXLib.IntX"/> object using custom alphabet.
+            </summary>
+            <param name="value">Number as string.</param>
+            <param name="numberBase">Number base.</param>
+            <param name="alphabet">Alphabet which contains chars used to represent big integer, char position is coresponding digit value.</param>
+            <returns>Parsed object.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.Parse(System.String,IntXLib.ParseMode)">
+            <summary>
+            Parses provided string representation of <see cref="T:IntXLib.IntX"/> object in decimal base.
+            If number starts from "0" then it's treated as octal; if number starts fropm "0x"
+            then it's treated as hexadecimal.
+            </summary>
+            <param name="value">Number as string.</param>
+            <param name="mode">Parse mode.</param>
+            <returns>Parsed object.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.Parse(System.String,System.UInt32,IntXLib.ParseMode)">
+            <summary>
+            Parses provided string representation of <see cref="T:IntXLib.IntX"/> object.
+            </summary>
+            <param name="value">Number as string.</param>
+            <param name="numberBase">Number base.</param>
+            <param name="mode">Parse mode.</param>
+            <returns>Parsed object.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.Parse(System.String,System.UInt32,System.String,IntXLib.ParseMode)">
+            <summary>
+            Parses provided string representation of <see cref="T:IntXLib.IntX"/> object using custom alphabet.
+            </summary>
+            <param name="value">Number as string.</param>
+            <param name="numberBase">Number base.</param>
+            <param name="alphabet">Alphabet which contains chars used to represent big integer, char position is coresponding digit value.</param>
+            <param name="mode">Parse mode.</param>
+            <returns>Parsed object.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.Equals(IntXLib.IntX)">
+            <summary>
+            Returns equality of this <see cref="T:IntXLib.IntX"/> with another big integer.
+            </summary>
+            <param name="n">Big integer to compare with.</param>
+            <returns>True if equals.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.Equals(System.Int32)">
+            <summary>
+            Returns equality of this <see cref="T:IntXLib.IntX"/> with another integer.
+            </summary>
+            <param name="n">Integer to compare with.</param>
+            <returns>True if equals.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.Equals(System.UInt32)">
+            <summary>
+            Returns equality of this <see cref="T:IntXLib.IntX"/> with another unsigned integer.
+            </summary>
+            <param name="n">Unsigned integer to compare with.</param>
+            <returns>True if equals.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.Equals(System.Int64)">
+            <summary>
+            Returns equality of this <see cref="T:IntXLib.IntX"/> with another long integer.
+            </summary>
+            <param name="n">Long integer to compare with.</param>
+            <returns>True if equals.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.Equals(System.UInt64)">
+            <summary>
+            Returns equality of this <see cref="T:IntXLib.IntX"/> with another unsigned long integer.
+            </summary>
+            <param name="n">Unsigned long integer to compare with.</param>
+            <returns>True if equals.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.Equals(System.Object)">
+            <summary>
+            Returns equality of this <see cref="T:IntXLib.IntX"/> with another object.
+            </summary>
+            <param name="obj">Object to compare with.</param>
+            <returns>True if equals.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.GetHashCode">
+            <summary>
+            Returns hash code for this <see cref="T:IntXLib.IntX"/> object.
+            </summary>
+            <returns>Object hash code.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.CompareTo(IntXLib.IntX)">
+            <summary>
+            Compares current object with another big integer.
+            </summary>
+            <param name="n">Big integer to compare with.</param>
+            <returns>1 if object is bigger than <paramref name="n" />, -1 if object is smaller than <paramref name="n" />, 0 if they are equal.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.CompareTo(System.Int32)">
+            <summary>
+            Compares current object with another integer.
+            </summary>
+            <param name="n">Integer to compare with.</param>
+            <returns>1 if object is bigger than <paramref name="n" />, -1 if object is smaller than <paramref name="n" />, 0 if they are equal.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.CompareTo(System.UInt32)">
+            <summary>
+            Compares current object with another unsigned integer.
+            </summary>
+            <param name="n">Unsigned integer to compare with.</param>
+            <returns>1 if object is bigger than <paramref name="n" />, -1 if object is smaller than <paramref name="n" />, 0 if they are equal.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.CompareTo(System.Int64)">
+            <summary>
+            Compares current object with another long integer.
+            </summary>
+            <param name="n">Long integer to compare with.</param>
+            <returns>1 if object is bigger than <paramref name="n" />, -1 if object is smaller than <paramref name="n" />, 0 if they are equal.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.CompareTo(System.UInt64)">
+            <summary>
+            Compares current object with another unsigned long integer.
+            </summary>
+            <param name="n">Unsigned long integer to compare with.</param>
+            <returns>1 if object is bigger than <paramref name="n" />, -1 if object is smaller than <paramref name="n" />, 0 if they are equal.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.CompareTo(System.Object)">
+            <summary>
+            Compares current object with another object.
+            </summary>
+            <param name="obj">Object to compare with.</param>
+            <returns>1 if object is bigger than <paramref name="obj" />, -1 if object is smaller than <paramref name="obj" />, 0 if they are equal.</returns>
+        </member>
+        <member name="M:IntXLib.IntX.Normalize">
+            <summary>
+            Frees extra space not used by digits.
+            </summary>
+        </member>
+        <member name="M:IntXLib.IntX.GetInternalState(System.UInt32[]@,System.Boolean@)">
+            <summary>
+            Retrieves this <see cref="T:IntXLib.IntX"/> internal state as digits array and sign.
+            Can be used for serialization and other purposes.
+            Note: please use constructor instead to clone <see cref="T:IntXLib.IntX"/> object.
+            </summary>
+            <param name="digits">Digits array.</param>
+            <param name="negative">Is negative integer.</param>
+        </member>
+        <member name="M:IntXLib.IntX.InitFromZero">
+            <summary>
+            Initializes class instance from zero.
+            For internal use.
+            </summary>
+        </member>
+        <member name="M:IntXLib.IntX.InitFromUlong(System.UInt64)">
+            <summary>
+            Initializes class instance from <see cref="T:System.UInt64"/> value.
+            Doesn't initialize sign.
+            For internal use.
+            </summary>
+            <param name="value">Unsigned long value.</param>
+        </member>
+        <member name="M:IntXLib.IntX.InitFromIntX(IntXLib.IntX)">
+            <summary>
+            Initializes class instance from another <see cref="T:IntXLib.IntX"/> value.
+            For internal use.
+            </summary>
+            <param name="value">Big integer value.</param>
+        </member>
+        <member name="M:IntXLib.IntX.InitFromDigits(System.UInt32[],System.Boolean,System.UInt32)">
+            <summary>
+            Initializes class instance from digits array.
+            For internal use.
+            </summary>
+            <param name="digits">Big integer digits.</param>
+            <param name="negative">Big integer sign.</param>
+            <param name="length">Big integer length.</param>
+        </member>
+        <member name="M:IntXLib.IntX.TryNormalize">
+            <summary>
+            Frees extra space not used by digits only if auto-normalize is set for the instance.
+            </summary>
+        </member>
+        <member name="P:IntXLib.IntX.GlobalSettings">
+            <summary>
+            <see cref="T:IntXLib.IntX"/> global settings.
+            </summary>
+        </member>
+        <member name="P:IntXLib.IntX.Settings">
+            <summary>
+            <see cref="T:IntXLib.IntX"/> instance settings.
+            </summary>
+        </member>
+        <member name="P:IntXLib.IntX.IsOdd">
+            <summary>
+            Gets flag indicating if big integer is odd.
+            </summary>
+        </member>
+        <member name="T:IntXLib.AutoFhtMultiplier">
+            <summary>
+            Multiplies using FHT.
+            </summary>
+        </member>
+        <member name="T:IntXLib.MultiplierBase">
+            <summary>
+            Base class for multipliers.
+            Contains default implementation of multiply operation over <see cref="T:IntXLib.IntX"/> instances.
+            </summary>
+        </member>
+        <member name="T:IntXLib.IMultiplier">
+            <summary>
+            Multiplier class interface.
+            </summary>
+        </member>
+        <member name="M:IntXLib.IMultiplier.Multiply(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Multiplies two big integers.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>Resulting big integer.</returns>
+        </member>
+        <member name="M:IntXLib.IMultiplier.Multiply(System.UInt32[],System.UInt32,System.UInt32[],System.UInt32,System.UInt32[])">
+            <summary>
+            Multiplies two big integers represented by their digits.
+            </summary>
+            <param name="digits1">First big integer digits.</param>
+            <param name="length1">First big integer real length.</param>
+            <param name="digits2">Second big integer digits.</param>
+            <param name="length2">Second big integer real length.</param>
+            <param name="digitsRes">Where to put resulting big integer.</param>
+            <returns>Resulting big integer real length.</returns>
+        </member>
+        <member name="M:IntXLib.IMultiplier.Multiply(System.UInt32*,System.UInt32,System.UInt32*,System.UInt32,System.UInt32*)">
+            <summary>
+            Multiplies two big integers using pointers.
+            </summary>
+            <param name="digitsPtr1">First big integer digits.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="digitsPtr2">Second big integer digits.</param>
+            <param name="length2">Second big integer length.</param>
+            <param name="digitsResPtr">Resulting big integer digits.</param>
+            <returns>Resulting big integer length.</returns>
+        </member>
+        <member name="M:IntXLib.MultiplierBase.Multiply(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Multiplies two big integers.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>Resulting big integer.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="int1"/> or <paramref name="int2"/> is a null reference.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="int1"/> or <paramref name="int2"/> is too big for multiply operation.</exception>
+        </member>
+        <member name="M:IntXLib.MultiplierBase.Multiply(System.UInt32[],System.UInt32,System.UInt32[],System.UInt32,System.UInt32[])">
+            <summary>
+            Multiplies two big integers represented by their digits.
+            </summary>
+            <param name="digits1">First big integer digits.</param>
+            <param name="length1">First big integer real length.</param>
+            <param name="digits2">Second big integer digits.</param>
+            <param name="length2">Second big integer real length.</param>
+            <param name="digitsRes">Where to put resulting big integer.</param>
+            <returns>Resulting big integer real length.</returns>
+        </member>
+        <member name="M:IntXLib.MultiplierBase.Multiply(System.UInt32*,System.UInt32,System.UInt32*,System.UInt32,System.UInt32*)">
+            <summary>
+            Multiplies two big integers using pointers.
+            </summary>
+            <param name="digitsPtr1">First big integer digits.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="digitsPtr2">Second big integer digits.</param>
+            <param name="length2">Second big integer length.</param>
+            <param name="digitsResPtr">Resulting big integer digits.</param>
+            <returns>Resulting big integer length.</returns>
+        </member>
+        <member name="M:IntXLib.AutoFhtMultiplier.#ctor(IntXLib.IMultiplier)">
+            <summary>
+            Creates new <see cref="T:IntXLib.AutoFhtMultiplier"/> instance.
+            </summary>
+            <param name="classicMultiplier">Multiplier to use if FHT is unapplicatible.</param>
+        </member>
+        <member name="M:IntXLib.AutoFhtMultiplier.Multiply(System.UInt32*,System.UInt32,System.UInt32*,System.UInt32,System.UInt32*)">
+            <summary>
+            Multiplies two big integers using pointers.
+            </summary>
+            <param name="digitsPtr1">First big integer digits.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="digitsPtr2">Second big integer digits.</param>
+            <param name="length2">Second big integer length.</param>
+            <param name="digitsResPtr">Resulting big integer digits.</param>
+            <returns>Resulting big integer real length.</returns>
+        </member>
+        <member name="T:IntXLib.ClassicMultiplier">
+            <summary>
+            Multiplies using "classic" algorithm.
+            </summary>
+        </member>
+        <member name="M:IntXLib.ClassicMultiplier.Multiply(System.UInt32*,System.UInt32,System.UInt32*,System.UInt32,System.UInt32*)">
+            <summary>
+            Multiplies two big integers using pointers.
+            </summary>
+            <param name="digitsPtr1">First big integer digits.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="digitsPtr2">Second big integer digits.</param>
+            <param name="length2">Second big integer length.</param>
+            <param name="digitsResPtr">Resulting big integer digits.</param>
+            <returns>Resulting big integer length.</returns>
+        </member>
+        <member name="T:IntXLib.MultiplyManager">
+            <summary>
+            Used to retrieve needed multiplier.
+            </summary>
+        </member>
+        <member name="F:IntXLib.MultiplyManager.ClassicMultiplier">
+            <summary>
+            Classic multiplier instance.
+            </summary>
+        </member>
+        <member name="F:IntXLib.MultiplyManager.AutoFhtMultiplier">
+            <summary>
+            FHT multiplier instance.
+            </summary>
+        </member>
+        <member name="M:IntXLib.MultiplyManager.GetMultiplier(IntXLib.MultiplyMode)">
+            <summary>
+            Returns multiplier instance for given multiply mode.
+            </summary>
+            <param name="mode">Multiply mode.</param>
+            <returns>Multiplier instance.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="mode"/> is out of range.</exception>
+        </member>
+        <member name="M:IntXLib.MultiplyManager.GetCurrentMultiplier">
+            <summary>
+            Returns current multiplier instance.
+            </summary>
+            <returns>Current multiplier instance.</returns>
+        </member>
+        <member name="T:IntXLib.DigitHelper">
+            <summary>
+            Contains big integer uint[] digits utilitary methods.
+            </summary>
+        </member>
+        <member name="M:IntXLib.DigitHelper.GetRealDigitsLength(System.UInt32[],System.UInt32)">
+            <summary>
+            Returns real length of digits array (excluding leading zeroes).
+            </summary>
+            <param name="digits">Big ingeter digits.</param>
+            <param name="length">Initial big integers length.</param>
+            <returns>Real length.</returns>
+        </member>
+        <member name="M:IntXLib.DigitHelper.GetRealDigitsLength(System.UInt32*,System.UInt32)">
+            <summary>
+            Returns real length of digits array (excluding leading zeroes).
+            </summary>
+            <param name="digits">Big ingeter digits.</param>
+            <param name="length">Initial big integers length.</param>
+            <returns>Real length.</returns>
+        </member>
+        <member name="M:IntXLib.DigitHelper.GetMinMaxLengthObjects(IntXLib.IntX,IntXLib.IntX,IntXLib.IntX@,IntXLib.IntX@)">
+            <summary>
+            Determines <see cref="T:IntXLib.IntX"/> object with lower length.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <param name="smallerInt">Resulting smaller big integer (by length only).</param>
+            <param name="biggerInt">Resulting bigger big integer (by length only).</param>
+        </member>
+        <member name="M:IntXLib.DigitHelper.ToUInt32WithSign(System.Int32,System.UInt32@,System.Boolean@)">
+            <summary>
+            Converts int value to uint digit and value sign.
+            </summary>
+            <param name="value">Initial value.</param>
+            <param name="resultValue">Resulting unsigned part.</param>
+            <param name="negative">Resulting sign.</param>
+        </member>
+        <member name="M:IntXLib.DigitHelper.ToUInt64WithSign(System.Int64,System.UInt64@,System.Boolean@)">
+            <summary>
+            Converts long value to ulong digit and value sign.
+            </summary>
+            <param name="value">Initial value.</param>
+            <param name="resultValue">Resulting unsigned part.</param>
+            <param name="negative">Resulting sign.</param>
+        </member>
+        <member name="M:IntXLib.DigitHelper.SetBlockDigits(System.UInt32*,System.UInt32,System.UInt32)">
+            <summary>
+            Sets digits in given block to given value.
+            </summary>
+            <param name="block">Block start pointer.</param>
+            <param name="blockLength">Block length.</param>
+            <param name="value">Value to set.</param>
+        </member>
+        <member name="M:IntXLib.DigitHelper.SetBlockDigits(System.Double*,System.UInt32,System.Double)">
+            <summary>
+            Sets digits in given block to given value.
+            </summary>
+            <param name="block">Block start pointer.</param>
+            <param name="blockLength">Block length.</param>
+            <param name="value">Value to set.</param>
+        </member>
+        <member name="M:IntXLib.DigitHelper.DigitsBlockCopy(System.UInt32*,System.UInt32*,System.UInt32)">
+            <summary>
+            Copies digits from one block to another.
+            </summary>
+            <param name="blockFrom">From block start pointer.</param>
+            <param name="blockTo">To block start pointer.</param>
+            <param name="count">Count of dwords to copy.</param>
+        </member>
+        <member name="T:IntXLib.DigitOpHelper">
+            <summary>
+            Contains helping methods for operations over <see cref="T:IntXLib.IntX"/> digits as arrays.
+            </summary>
+        </member>
+        <member name="M:IntXLib.DigitOpHelper.Add(System.UInt32[],System.UInt32,System.UInt32[],System.UInt32,System.UInt32[])">
+            <summary>
+            Adds two big integers.
+            </summary>
+            <param name="digits1">First big integer digits.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="digits2">Second big integer digits.</param>
+            <param name="length2">Second big integer length.</param>
+            <param name="digitsRes">Resulting big integer digits.</param>
+            <returns>Resulting big integer length.</returns>
+        </member>
+        <member name="M:IntXLib.DigitOpHelper.Add(System.UInt32*,System.UInt32,System.UInt32*,System.UInt32,System.UInt32*)">
+            <summary>
+            Adds two big integers using pointers.
+            </summary>
+            <param name="digitsPtr1">First big integer digits.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="digitsPtr2">Second big integer digits.</param>
+            <param name="length2">Second big integer length.</param>
+            <param name="digitsResPtr">Resulting big integer digits.</param>
+            <returns>Resulting big integer length.</returns>
+        </member>
+        <member name="M:IntXLib.DigitOpHelper.Sub(System.UInt32[],System.UInt32,System.UInt32[],System.UInt32,System.UInt32[])">
+            <summary>
+            Subtracts two big integers.
+            </summary>
+            <param name="digits1">First big integer digits.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="digits2">Second big integer digits.</param>
+            <param name="length2">Second big integer length.</param>
+            <param name="digitsRes">Resulting big integer digits.</param>
+            <returns>Resulting big integer length.</returns>
+        </member>
+        <member name="M:IntXLib.DigitOpHelper.Sub(System.UInt32*,System.UInt32,System.UInt32*,System.UInt32,System.UInt32*)">
+            <summary>
+            Subtracts two big integers using pointers.
+            </summary>
+            <param name="digitsPtr1">First big integer digits.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="digitsPtr2">Second big integer digits.</param>
+            <param name="length2">Second big integer length.</param>
+            <param name="digitsResPtr">Resulting big integer digits.</param>
+            <returns>Resulting big integer length.</returns>
+        </member>
+        <member name="M:IntXLib.DigitOpHelper.DivMod(System.UInt32[],System.UInt32,System.UInt32,System.UInt32[],System.UInt32@)">
+            <summary>
+            Divides one big integer represented by it's digits on another one big ingeter.
+            Reminder is always filled (but not the result).
+            </summary>
+            <param name="digits1">First big integer digits.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="int2">Second integer.</param>
+            <param name="divRes">Div result (can be null - not filled in this case).</param>
+            <param name="modRes">Remainder (always filled).</param>
+            <returns>Result length (0 if result is null).</returns>
+        </member>
+        <member name="M:IntXLib.DigitOpHelper.DivMod(System.UInt32*,System.UInt32,System.UInt32,System.UInt32*,System.UInt32@)">
+            <summary>
+            Divides one big integer represented by it's digits on another one big ingeter.
+            Reminder is always filled (but not the result).
+            </summary>
+            <param name="digitsPtr1">First big integer digits.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="int2">Second integer.</param>
+            <param name="divResPtr">Div result (can be null - not filled in this case).</param>
+            <param name="modRes">Remainder (always filled).</param>
+            <returns>Result length (0 if result is null).</returns>
+        </member>
+        <member name="M:IntXLib.DigitOpHelper.Mod(System.UInt32[],System.UInt32,System.UInt32)">
+            <summary>
+            Divides one big integer represented by it's digits on another one big ingeter.
+            Only remainder is filled.
+            </summary>
+            <param name="digits1">First big integer digits.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="int2">Second integer.</param>
+            <returns>Remainder.</returns>
+        </member>
+        <member name="M:IntXLib.DigitOpHelper.Mod(System.UInt32*,System.UInt32,System.UInt32)">
+            <summary>
+            Divides one big integer represented by it's digits on another one big ingeter.
+            Only remainder is filled.
+            </summary>
+            <param name="digitsPtr1">First big integer digits.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="int2">Second integer.</param>
+            <returns>Remainder.</returns>
+        </member>
+        <member name="M:IntXLib.DigitOpHelper.Cmp(System.UInt32[],System.UInt32,System.UInt32[],System.UInt32)">
+            <summary>
+            Compares 2 <see cref="T:IntXLib.IntX"/> objects represented by digits only (not taking sign into account).
+            Returns "-1" if <paramref name="digits1"/> &lt; <paramref name="digits2"/>, "0" if equal and "1" if &gt;.
+            </summary>
+            <param name="digits1">First big integer digits.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="digits2">Second big integer digits.</param>
+            <param name="length2">Second big integer length.</param>
+            <returns>Comparsion result.</returns>
+        </member>
+        <member name="M:IntXLib.DigitOpHelper.Cmp(System.UInt32*,System.UInt32,System.UInt32*,System.UInt32)">
+            <summary>
+            Compares 2 <see cref="T:IntXLib.IntX"/> objects represented by pointers only (not taking sign into account).
+            Returns "-1" if <paramref name="digitsPtr1"/> &lt; <paramref name="digitsPtr2"/>, "0" if equal and "1" if &gt;.
+            </summary>
+            <param name="digitsPtr1">First big integer digits.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="digitsPtr2">Second big integer digits.</param>
+            <param name="length2">Second big integer length.</param>
+            <returns>Comparsion result.</returns>
+        </member>
+        <member name="M:IntXLib.DigitOpHelper.CmpLen(System.UInt32,System.UInt32)">
+            <summary>
+            Compares two integers lengths. Returns -2 if further comparing is needed.
+            </summary>
+            <param name="length1">First big integer length.</param>
+            <param name="length2">Second big integer length.</param>
+            <returns>Comparsion result.</returns>
+        </member>
+        <member name="M:IntXLib.DigitOpHelper.Shr(System.UInt32[],System.UInt32,System.UInt32,System.UInt32[],System.UInt32,System.Int32)">
+            <summary>
+            Shifts big integer.
+            </summary>
+            <param name="digits">Big integer digits.</param>
+            <param name="offset">Big integer digits offset.</param>
+            <param name="length">Big integer length.</param>
+            <param name="digitsRes">Resulting big integer digits.</param>
+            <param name="resOffset">Resulting big integer digits offset.</param>
+            <param name="rightShift">Shift to the right (always between 1 an 31).</param>
+        </member>
+        <member name="M:IntXLib.DigitOpHelper.Shr(System.UInt32*,System.UInt32,System.UInt32*,System.Int32,System.Boolean)">
+            <summary>
+            Shifts big integer.
+            </summary>
+            <param name="digitsPtr">Big integer digits.</param>
+            <param name="length">Big integer length.</param>
+            <param name="digitsResPtr">Resulting big integer digits.</param>
+            <param name="rightShift">Shift to the right (always between 1 an 31).</param>
+            <param name="resHasOffset">True if <paramref name="digitsResPtr" /> has offset.</param>
+            <returns>Resulting big integer length.</returns>
+        </member>
+        <member name="M:IntXLib.DigitOpHelper.BitwiseOr(System.UInt32[],System.UInt32,System.UInt32[],System.UInt32,System.UInt32[])">
+            <summary>
+            Performs bitwise OR for two big integers.
+            </summary>
+            <param name="digits1">First big integer digits.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="digits2">Second big integer digits.</param>
+            <param name="length2">Second big integer length.</param>
+            <param name="digitsRes">Resulting big integer digits.</param>
+        </member>
+        <member name="M:IntXLib.DigitOpHelper.BitwiseAnd(System.UInt32[],System.UInt32[],System.UInt32,System.UInt32[])">
+            <summary>
+            Performs bitwise AND for two big integers.
+            </summary>
+            <param name="digits1">First big integer digits.</param>
+            <param name="digits2">Second big integer digits.</param>
+            <param name="length">Shorter big integer length.</param>
+            <param name="digitsRes">Resulting big integer digits.</param>
+            <returns>Resulting big integer length.</returns>
+        </member>
+        <member name="M:IntXLib.DigitOpHelper.ExclusiveOr(System.UInt32[],System.UInt32,System.UInt32[],System.UInt32,System.UInt32[])">
+            <summary>
+            Performs bitwise XOR for two big integers.
+            </summary>
+            <param name="digits1">First big integer digits.</param>
+            <param name="length1">First big integer length.</param>
+            <param name="digits2">Second big integer digits.</param>
+            <param name="length2">Second big integer length.</param>
+            <param name="digitsRes">Resulting big integer digits.</param>
+            <returns>Resulting big integer length.</returns>
+        </member>
+        <member name="M:IntXLib.DigitOpHelper.OnesComplement(System.UInt32[],System.UInt32,System.UInt32[])">
+            <summary>
+            Performs bitwise NOT for big integer.
+            </summary>
+            <param name="digits">Big integer digits.</param>
+            <param name="length">Big integer length.</param>
+            <param name="digitsRes">Resulting big integer digits.</param>
+            <returns>Resulting big integer length.</returns>
+        </member>
+        <member name="T:IntXLib.FhtHelper">
+            <summary>
+            Contains helping methods for work with FHT (Fast Hartley Transform).
+            FHT is a better alternative of FFT (Fast Fourier Transform) - at least for <see cref="T:IntXLib.IntX"/>.
+            </summary>
+        </member>
+        <member name="M:IntXLib.FhtHelper.ConvertDigitsToDouble(System.UInt32[],System.UInt32,System.UInt32)">
+            <summary>
+            Converts <see cref="T:IntXLib.IntX"/> digits into real representation (used in FHT).
+            </summary>
+            <param name="digits">Big integer digits.</param>
+            <param name="length"><paramref name="digits"/> length.</param>
+            <param name="newLength">Multiplication result length (must be pow of 2).</param>
+            <returns>Double array.</returns>
+        </member>
+        <member name="M:IntXLib.FhtHelper.ConvertDigitsToDouble(System.UInt32*,System.UInt32,System.UInt32)">
+            <summary>
+            Converts <see cref="T:IntXLib.IntX"/> digits into real representation (used in FHT).
+            </summary>
+            <param name="digitsPtr">Big integer digits.</param>
+            <param name="length"><paramref name="digitsPtr"/> length.</param>
+            <param name="newLength">Multiplication result length (must be pow of 2).</param>
+            <returns>Double array.</returns>
+        </member>
+        <member name="M:IntXLib.FhtHelper.ConvertDoubleToDigits(System.Double[],System.UInt32,System.UInt32,System.UInt32[])">
+            <summary>
+            Converts real digits representation (result of FHT) into usual <see cref="T:IntXLib.IntX"/> digits.
+            </summary>
+            <param name="array">Real digits representation.</param>
+            <param name="length"><paramref name="array"/> length.</param>
+            <param name="digitsLength">New digits array length (we always do know the upper value for this array).</param>
+            <param name="digitsRes">Big integer digits.</param>
+        </member>
+        <member name="M:IntXLib.FhtHelper.ConvertDoubleToDigits(System.Double*,System.UInt32,System.UInt32,System.UInt32*)">
+            <summary>
+            Converts real digits representation (result of FHT) into usual <see cref="T:IntXLib.IntX"/> digits.
+            </summary>
+            <param name="slice">Real digits representation.</param>
+            <param name="length"><paramref name="slice"/> length.</param>
+            <param name="digitsLength">New digits array length (we always do know the upper value for this array).</param>
+            <param name="digitsResPtr">Resulting digits storage.</param>
+            <returns>Big integer digits (dword values).</returns>
+        </member>
+        <member name="M:IntXLib.FhtHelper.Fht(System.Double[],System.UInt32)">
+            <summary>
+            Performs FHT "in place" for given double[] array.
+            </summary>
+            <param name="array">Double array.</param>
+            <param name="length">Array length.</param>
+        </member>
+        <member name="M:IntXLib.FhtHelper.Fht(System.Double*,System.UInt32,System.Int32)">
+            <summary>
+            Performs FHT "in place" for given double[] array slice.
+            </summary>
+            <param name="slice">Double array slice.</param>
+            <param name="length">Slice length.</param>
+            <param name="lengthLog2">Log2(<paramref name="length" />).</param>
+        </member>
+        <member name="M:IntXLib.FhtHelper.Fht4(System.Double*)">
+            <summary>
+            Performs FHT "in place" for given double[] array slice.
+            Fast version for length == 4.
+            </summary>
+            <param name="slice">Double array slice.</param>
+        </member>
+        <member name="M:IntXLib.FhtHelper.MultiplyFhtResults(System.Double[],System.Double[],System.UInt32)">
+            <summary>
+            Multiplies two FHT results and stores multiplication in first one.
+            </summary>
+            <param name="data">First FHT result.</param>
+            <param name="data2">Second FHT result.</param>
+            <param name="length">FHT results length.</param>
+        </member>
+        <member name="M:IntXLib.FhtHelper.MultiplyFhtResults(System.Double*,System.Double*,System.UInt32)">
+            <summary>
+            Multiplies two FHT results and stores multiplication in first one.
+            </summary>
+            <param name="slice">First FHT result.</param>
+            <param name="slice2">Second FHT result.</param>
+            <param name="length">FHT results length.</param>
+        </member>
+        <member name="M:IntXLib.FhtHelper.ReverseFht(System.Double[],System.UInt32)">
+            <summary>
+            Performs FHT reverse "in place" for given double[] array.
+            </summary>
+            <param name="array">Double array.</param>
+            <param name="length">Array length.</param>
+        </member>
+        <member name="M:IntXLib.FhtHelper.ReverseFht(System.Double*,System.UInt32,System.Int32)">
+            <summary>
+            Performs reverse FHT "in place" for given double[] array slice.
+            </summary>
+            <param name="slice">Double array slice.</param>
+            <param name="length">Slice length.</param>
+            <param name="lengthLog2">Log2(<paramref name="length" />).</param>
+        </member>
+        <member name="M:IntXLib.FhtHelper.ReverseFht8(System.Double*)">
+            <summary>
+            Performs reverse FHT "in place" for given double[] array slice.
+            Fast version for length == 8.
+            </summary>
+            <param name="slice">Double array slice.</param>
+        </member>
+        <member name="M:IntXLib.FhtHelper.FhtButterfly(System.Double*,System.Double*,System.UInt32,System.UInt32,System.Double,System.Double)">
+            <summary>
+            Performs "butterfly" operation for <see cref="M:IntXLib.FhtHelper.Fht(System.Double*,System.UInt32,System.Int32)"/>.
+            </summary>
+            <param name="slice1">First data array slice.</param>
+            <param name="slice2">Second data array slice.</param>
+            <param name="index1">First slice index.</param>
+            <param name="index2">Second slice index.</param>
+            <param name="cos">Cos value.</param>
+            <param name="sin">Sin value.</param>
+        </member>
+        <member name="M:IntXLib.FhtHelper.ReverseFhtButterfly(System.Double*,System.Double*,System.UInt32,System.UInt32,System.Double,System.Double)">
+            <summary>
+            Performs "butterfly" operation for <see cref="M:IntXLib.FhtHelper.ReverseFht(System.Double*,System.UInt32,System.Int32)"/>.
+            </summary>
+            <param name="slice1">First data array slice.</param>
+            <param name="slice2">Second data array slice.</param>
+            <param name="index1">First slice index.</param>
+            <param name="index2">Second slice index.</param>
+            <param name="cos">Cos value.</param>
+            <param name="sin">Sin value.</param>
+        </member>
+        <member name="M:IntXLib.FhtHelper.ReverseFhtButterfly2(System.Double*,System.Double*,System.UInt32,System.UInt32,System.Double,System.Double)">
+            <summary>
+            Performs "butterfly" operation for <see cref="M:IntXLib.FhtHelper.ReverseFht(System.Double*,System.UInt32,System.Int32)"/>.
+            Another version.
+            </summary>
+            <param name="slice1">First data array slice.</param>
+            <param name="slice2">Second data array slice.</param>
+            <param name="index1">First slice index.</param>
+            <param name="index2">Second slice index.</param>
+            <param name="cos">Cos value.</param>
+            <param name="sin">Sin value.</param>
+        </member>
+        <member name="M:IntXLib.FhtHelper.FillSineTable(System.Double[])">
+            <summary>
+            Fills sine table for FHT.
+            </summary>
+            <param name="sineTable">Sine table to fill.</param>
+        </member>
+        <member name="M:IntXLib.FhtHelper.GetInitialTrigValues(IntXLib.FhtHelper.TrigValues*,System.Int32)">
+            <summary>
+            Initializes trigonometry values for FHT.
+            </summary>
+            <param name="valuesPtr">Values to init.</param>
+            <param name="lengthLog2">Log2(processing slice length).</param>
+        </member>
+        <member name="M:IntXLib.FhtHelper.NextTrigValues(IntXLib.FhtHelper.TrigValues*)">
+            <summary>
+            Generates next trigonometry values for FHT basing on previous ones.
+            </summary>
+            <param name="valuesPtr">Current trig values.</param>
+        </member>
+        <member name="T:IntXLib.FhtHelper.TrigValues">
+            <summary>
+            Trigonometry values.
+            </summary>
+        </member>
+        <member name="F:IntXLib.FhtHelper.TrigValues.TableSin">
+            <summary>
+            Sin value from <see cref="F:IntXLib.FhtHelper.SineTable"/>.
+            </summary>
+        </member>
+        <member name="F:IntXLib.FhtHelper.TrigValues.TableCos">
+            <summary>
+            Cos value from <see cref="F:IntXLib.FhtHelper.SineTable"/>.
+            </summary>
+        </member>
+        <member name="F:IntXLib.FhtHelper.TrigValues.Sin">
+            <summary>
+            Sin value.
+            </summary>
+        </member>
+        <member name="F:IntXLib.FhtHelper.TrigValues.Cos">
+            <summary>
+            Cos value.
+            </summary>
+        </member>
+        <member name="T:IntXLib.OpHelper">
+            <summary>
+            Contains helping methods for operations over <see cref="T:IntXLib.IntX"/>.
+            </summary>
+        </member>
+        <member name="M:IntXLib.OpHelper.Add(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Adds two big integers.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>Resulting big integer.</returns>
+            <exception cref="T:System.ArgumentException"><paramref name="int1"/> or <paramref name="int2"/> is too big for add operation.</exception>
+        </member>
+        <member name="M:IntXLib.OpHelper.Sub(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Subtracts two big integers.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>Resulting big integer.</returns>
+        </member>
+        <member name="M:IntXLib.OpHelper.AddSub(IntXLib.IntX,IntXLib.IntX,System.Boolean)">
+            <summary>
+            Adds/subtracts one <see cref="T:IntXLib.IntX"/> to/from another.
+            Determines which operation to use basing on operands signs.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <param name="subtract">Was subtraction initially.</param>
+            <returns>Add/subtract operation result.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="int1"/> or <paramref name="int2"/> is a null reference.</exception>
+        </member>
+        <member name="M:IntXLib.OpHelper.Pow(IntXLib.IntX,System.UInt32,IntXLib.MultiplyMode)">
+            <summary>
+            Returns a specified big integer raised to the specified power.
+            </summary>
+            <param name="value">Number to raise.</param>
+            <param name="power">Power.</param>
+            <param name="multiplyMode">Multiply mode set explicitly.</param>
+            <returns>Number in given power.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value"/> is a null reference.</exception>
+        </member>
+        <member name="M:IntXLib.OpHelper.Cmp(IntXLib.IntX,IntXLib.IntX,System.Boolean)">
+            <summary>
+            Compares 2 <see cref="T:IntXLib.IntX"/> objects.
+            Returns "-2" if any argument is null, "-1" if <paramref name="int1"/> &lt; <paramref name="int2"/>,
+            "0" if equal and "1" if &gt;.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <param name="throwNullException">Raises or not <see cref="T:System.NullReferenceException"/>.</param>
+            <returns>Comparsion result.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="int1"/> or <paramref name="int2"/> is a null reference and <paramref name="throwNullException"/> is set to true.</exception>
+        </member>
+        <member name="M:IntXLib.OpHelper.Cmp(IntXLib.IntX,System.Int32)">
+            <summary>
+            Compares <see cref="T:IntXLib.IntX"/> object to int.
+            Returns "-1" if <paramref name="int1"/> &lt; <paramref name="int2"/>, "0" if equal and "1" if &gt;.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second integer.</param>
+            <returns>Comparsion result.</returns>
+        </member>
+        <member name="M:IntXLib.OpHelper.Cmp(IntXLib.IntX,System.UInt32)">
+            <summary>
+            Compares <see cref="T:IntXLib.IntX"/> object to unsigned int.
+            Returns "-1" if <paramref name="int1"/> &lt; <paramref name="int2"/>, "0" if equal and "1" if &gt;.
+            For internal use.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second unsigned integer.</param>
+            <returns>Comparsion result.</returns>
+        </member>
+        <member name="M:IntXLib.OpHelper.Sh(IntXLib.IntX,System.Int64,System.Boolean)">
+            <summary>
+            Shifts <see cref="T:IntXLib.IntX"/> object.
+            Determines which operation to use basing on shift sign.
+            </summary>
+            <param name="intX">Big integer.</param>
+            <param name="shift">Bits count to shift.</param>
+            <param name="toLeft">If true the shifting to the left.</param>
+            <returns>Bitwise shift operation result.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="intX"/> is a null reference.</exception>
+        </member>
+        <member name="M:IntXLib.OpHelper.BitwiseOr(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Performs bitwise OR for two big integers.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>Resulting big integer.</returns>
+        </member>
+        <member name="M:IntXLib.OpHelper.BitwiseAnd(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Performs bitwise AND for two big integers.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>Resulting big integer.</returns>
+        </member>
+        <member name="M:IntXLib.OpHelper.ExclusiveOr(IntXLib.IntX,IntXLib.IntX)">
+            <summary>
+            Performs bitwise XOR for two big integers.
+            </summary>
+            <param name="int1">First big integer.</param>
+            <param name="int2">Second big integer.</param>
+            <returns>Resulting big integer.</returns>
+        </member>
+        <member name="M:IntXLib.OpHelper.OnesComplement(IntXLib.IntX)">
+            <summary>
+            Performs bitwise NOT for big integer.
+            </summary>
+            <param name="value">Big integer.</param>
+            <returns>Resulting big integer.</returns>
+        </member>
+        <member name="T:IntXLib.StrRepHelper">
+            <summary>
+            Helps to work with <see cref="T:IntXLib.IntX"/> string representations.
+            </summary>
+        </member>
+        <member name="M:IntXLib.StrRepHelper.GetDigit(System.Collections.Generic.IDictionary{System.Char,System.UInt32},System.Char,System.UInt32)">
+            <summary>
+            Returns digit for given char.
+            </summary>
+            <param name="charToDigits">Char-&gt;digit dictionary.</param>
+            <param name="ch">Char which represents big integer digit.</param>
+            <param name="numberBase">String representation number base.</param>
+            <returns>Digit.</returns>
+            <exception cref="T:System.FormatException"><paramref name="ch"/> is not in valid format.</exception>
+        </member>
+        <member name="M:IntXLib.StrRepHelper.AssertAlphabet(System.String,System.UInt32)">
+            <summary>
+            Verfies string alphabet provider by user for validity.
+            </summary>
+            <param name="alphabet">Alphabet.</param>
+            <param name="numberBase">String representation number base.</param>
+        </member>
+        <member name="M:IntXLib.StrRepHelper.CharDictionaryFromAlphabet(System.String,System.UInt32)">
+            <summary>
+            Generates char->digit dictionary from alphabet.
+            </summary>
+            <param name="alphabet">Alphabet.</param>
+            <param name="numberBase">String representation number base.</param>
+            <returns>Char->digit dictionary.</returns>
+        </member>
+        <member name="T:IntXLib.ClassicParser">
+            <summary>
+            Classic parsing algorithm using multiplication (O[n^2]).
+            </summary>
+        </member>
+        <member name="T:IntXLib.ParserBase">
+            <summary>
+            Base class for parsers.
+            Contains default implementations of parse operation over <see cref="T:IntXLib.IntX"/> instances.
+            </summary>
+        </member>
+        <member name="T:IntXLib.IParser">
+            <summary>
+            Parser class interface.
+            </summary>
+        </member>
+        <member name="M:IntXLib.IParser.Parse(System.String,System.UInt32,System.Collections.Generic.IDictionary{System.Char,System.UInt32},System.Boolean)">
+            <summary>
+            Parses provided string representation of <see cref="T:IntXLib.IntX"/> object.
+            </summary>
+            <param name="value">Number as string.</param>
+            <param name="numberBase">Number base.</param>
+            <param name="charToDigits">Char-&gt;digit dictionary.</param>
+            <param name="checkFormat">Check actual format of number (0 or 0x at start).</param>
+            <returns>Parsed object.</returns>
+        </member>
+        <member name="M:IntXLib.IParser.Parse(System.String,System.Int32,System.Int32,System.UInt32,System.Collections.Generic.IDictionary{System.Char,System.UInt32},System.UInt32[])">
+            <summary>
+            Parses provided string representation of <see cref="T:IntXLib.IntX"/> object.
+            </summary>
+            <param name="value">Number as string.</param>
+            <param name="startIndex">Index inside string from which to start.</param>
+            <param name="endIndex">Index inside string on which to end.</param>
+            <param name="numberBase">Number base.</param>
+            <param name="charToDigits">Char-&gt;digit dictionary.</param>
+            <param name="digitsRes">Resulting digits.</param>
+            <returns>Parsed integer length.</returns>
+        </member>
+        <member name="M:IntXLib.ParserBase.#ctor(IntXLib.IParser)">
+            <summary>
+            Creates new <see cref="T:IntXLib.ParserBase"/> instance.
+            </summary>
+            <param name="pow2Parser">Parser for pow2 case.</param>
+        </member>
+        <member name="M:IntXLib.ParserBase.Parse(System.String,System.UInt32,System.Collections.Generic.IDictionary{System.Char,System.UInt32},System.Boolean)">
+            <summary>
+            Parses provided string representation of <see cref="T:IntXLib.IntX"/> object.
+            </summary>
+            <param name="value">Number as string.</param>
+            <param name="numberBase">Number base.</param>
+            <param name="charToDigits">Char-&gt;digit dictionary.</param>
+            <param name="checkFormat">Check actual format of number (0 or 0x at start).</param>
+            <returns>Parsed object.</returns>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value"/> is a null reference.</exception>
+            <exception cref="T:System.ArgumentException"><paramref name="numberBase"/> is less then 2 or more then 16.</exception>
+            <exception cref="T:System.FormatException"><paramref name="value"/> is not in valid format.</exception>
+        </member>
+        <member name="M:IntXLib.ParserBase.Parse(System.String,System.Int32,System.Int32,System.UInt32,System.Collections.Generic.IDictionary{System.Char,System.UInt32},System.UInt32[])">
+            <summary>
+            Parses provided string representation of <see cref="T:IntXLib.IntX"/> object.
+            </summary>
+            <param name="value">Number as string.</param>
+            <param name="startIndex">Index inside string from which to start.</param>
+            <param name="endIndex">Index inside string on which to end.</param>
+            <param name="numberBase">Number base.</param>
+            <param name="charToDigits">Char-&gt;digit dictionary.</param>
+            <param name="digitsRes">Resulting digits.</param>
+            <returns>Parsed integer length.</returns>
+        </member>
+        <member name="M:IntXLib.ClassicParser.#ctor(IntXLib.IParser)">
+            <summary>
+            Creates new <see cref="T:IntXLib.ClassicParser"/> instance.
+            </summary>
+            <param name="pow2Parser">Parser for pow2 case.</param>
+        </member>
+        <member name="M:IntXLib.ClassicParser.Parse(System.String,System.Int32,System.Int32,System.UInt32,System.Collections.Generic.IDictionary{System.Char,System.UInt32},System.UInt32[])">
+            <summary>
+            Parses provided string representation of <see cref="T:IntXLib.IntX"/> object.
+            </summary>
+            <param name="value">Number as string.</param>
+            <param name="startIndex">Index inside string from which to start.</param>
+            <param name="endIndex">Index inside string on which to end.</param>
+            <param name="numberBase">Number base.</param>
+            <param name="charToDigits">Char-&gt;digit dictionary.</param>
+            <param name="digitsRes">Resulting digits.</param>
+            <returns>Parsed integer length.</returns>
+        </member>
+        <member name="T:IntXLib.FastParser">
+            <summary>
+            Fast parsing algorithm using divide-by-two (O[n*{log n}^2]).
+            </summary>
+        </member>
+        <member name="M:IntXLib.FastParser.#ctor(IntXLib.IParser,IntXLib.IParser)">
+            <summary>
+            Creates new <see cref="T:IntXLib.FastParser"/> instance.
+            </summary>
+            <param name="pow2Parser">Parser for pow2 case.</param>
+            <param name="classicParser">Classic parser.</param>
+        </member>
+        <member name="M:IntXLib.FastParser.Parse(System.String,System.Int32,System.Int32,System.UInt32,System.Collections.Generic.IDictionary{System.Char,System.UInt32},System.UInt32[])">
+            <summary>
+            Parses provided string representation of <see cref="T:IntXLib.IntX"/> object.
+            </summary>
+            <param name="value">Number as string.</param>
+            <param name="startIndex">Index inside string from which to start.</param>
+            <param name="endIndex">Index inside string on which to end.</param>
+            <param name="numberBase">Number base.</param>
+            <param name="charToDigits">Char-&gt;digit dictionary.</param>
+            <param name="digitsRes">Resulting digits.</param>
+            <returns>Parsed integer length.</returns>
+        </member>
+        <member name="T:IntXLib.ParseManager">
+            <summary>
+            Used to retrieve needed parser.
+            </summary>
+        </member>
+        <member name="F:IntXLib.ParseManager.ClassicParser">
+            <summary>
+            Classic parser instance.
+            </summary>
+        </member>
+        <member name="F:IntXLib.ParseManager.FastParser">
+            <summary>
+            Fast parser instance.
+            </summary>
+        </member>
+        <member name="M:IntXLib.ParseManager.GetParser(IntXLib.ParseMode)">
+            <summary>
+            Returns parser instance for given parse mode.
+            </summary>
+            <param name="mode">Parse mode.</param>
+            <returns>Parser instance.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="mode"/> is out of range.</exception>
+        </member>
+        <member name="M:IntXLib.ParseManager.GetCurrentParser">
+            <summary>
+            Returns current parser instance.
+            </summary>
+            <returns>Current parser instance.</returns>
+        </member>
+        <member name="T:IntXLib.Pow2Parser">
+            <summary>
+            Provides special fast (with linear time) parsing if base is pow of 2.
+            </summary>
+        </member>
+        <member name="M:IntXLib.Pow2Parser.Parse(System.String,System.Int32,System.Int32,System.UInt32,System.Collections.Generic.IDictionary{System.Char,System.UInt32},System.UInt32[])">
+            <summary>
+            Parses provided string representation of <see cref="T:IntXLib.IntX"/> object.
+            </summary>
+            <param name="value">Number as string.</param>
+            <param name="startIndex">Index inside string from which to start.</param>
+            <param name="endIndex">Index inside string on which to end.</param>
+            <param name="numberBase">Number base.</param>
+            <param name="charToDigits">Char-&gt;digit dictionary.</param>
+            <param name="digitsRes">Resulting digits.</param>
+            <returns>Parsed integer length.</returns>
+        </member>
+        <member name="T:IntXLib.IntXGlobalSettings">
+            <summary>
+            <see cref="T:IntXLib.IntX"/> global settings.
+            </summary>
+        </member>
+        <member name="P:IntXLib.IntXGlobalSettings.MultiplyMode">
+            <summary>
+            Multiply operation mode used in all <see cref="T:IntXLib.IntX"/> instances.
+            Set to auto-FHT by default.
+            </summary>
+        </member>
+        <member name="P:IntXLib.IntXGlobalSettings.DivideMode">
+            <summary>
+            Divide operation mode used in all <see cref="T:IntXLib.IntX"/> instances.
+            Set to auto-Newton by default.
+            </summary>
+        </member>
+        <member name="P:IntXLib.IntXGlobalSettings.ParseMode">
+            <summary>
+            Parse mode used in all <see cref="T:IntXLib.IntX"/> instances.
+            Set to Fast by default.
+            </summary>
+        </member>
+        <member name="P:IntXLib.IntXGlobalSettings.ToStringMode">
+            <summary>
+            To string conversion mode used in all <see cref="T:IntXLib.IntX"/> instances.
+            Set to Fast by default.
+            </summary>
+        </member>
+        <member name="P:IntXLib.IntXGlobalSettings.AutoNormalize">
+            <summary>
+            If true then each operation is ended with big integer normalization.
+            Set to false by default.
+            </summary>
+        </member>
+        <member name="P:IntXLib.IntXGlobalSettings.ApplyFhtValidityCheck">
+            <summary>
+            If true then FHT multiplication result is always checked for validity
+            by multiplying integers lower digits using classic algorithm and comparing with FHT result.
+            Set to true by default.
+            </summary>
+        </member>
+        <member name="T:IntXLib.IntXSettings">
+            <summary>
+            <see cref="T:IntXLib.IntX"/> instance settings.
+            </summary>
+        </member>
+        <member name="M:IntXLib.IntXSettings.#ctor(IntXLib.IntXGlobalSettings)">
+            <summary>
+            Creates new <see cref="T:IntXLib.IntXSettings"/> instance.
+            </summary>
+            <param name="globalSettings">IntX global settings to copy.</param>
+        </member>
+        <member name="P:IntXLib.IntXSettings.ToStringMode">
+            <summary>
+            To string conversion mode used in this <see cref="T:IntXLib.IntX"/> instance.
+            Set to value from <see cref="P:IntXLib.IntX.GlobalSettings"/> by default.
+            </summary>
+        </member>
+        <member name="P:IntXLib.IntXSettings.AutoNormalize">
+            <summary>
+            If true then each operation is ended with big integer normalization.
+            Set to value from <see cref="P:IntXLib.IntX.GlobalSettings"/> by default.
+            </summary>
+        </member>
+        <member name="T:IntXLib.ClassicStringConverter">
+            <summary>
+            Classic ToString converting algorithm using division (O[n^2]).
+            </summary>
+        </member>
+        <member name="T:IntXLib.StringConverterBase">
+            <summary>
+            Base class for ToString converters.
+            Contains default implementations of convert operation over <see cref="T:IntXLib.IntX"/> instances.
+            </summary>
+        </member>
+        <member name="T:IntXLib.IStringConverter">
+            <summary>
+            ToString converter class interface.
+            </summary>
+        </member>
+        <member name="M:IntXLib.IStringConverter.ToString(IntXLib.IntX,System.UInt32,System.Char[])">
+            <summary>
+            Returns string representation of <see cref="T:IntXLib.IntX"/> object in given base.
+            </summary>
+            <param name="intX">Big integer to convert.</param>
+            <param name="numberBase">Base of system in which to do output.</param>
+            <param name="alphabet">Alphabet which contains chars used to represent big integer, char position is coresponding digit value.</param>
+            <returns>Object string representation.</returns>
+        </member>
+        <member name="M:IntXLib.IStringConverter.ToString(System.UInt32[],System.UInt32,System.UInt32,System.UInt32@)">
+            <summary>
+            Converts digits from internal representaion into given base.
+            </summary>
+            <param name="digits">Big integer digits.</param>
+            <param name="length">Big integer length.</param>
+            <param name="numberBase">Base to use for output.</param>
+            <param name="outputLength">Calculated output length (will be corrected inside).</param>
+            <returns>Conversion result (later will be transformed to string).</returns>
+        </member>
+        <member name="M:IntXLib.StringConverterBase.#ctor(IntXLib.IStringConverter)">
+            <summary>
+            Creates new <see cref="T:IntXLib.StringConverterBase"/> instance.
+            </summary>
+            <param name="pow2StringConverter">Converter for pow2 case.</param>
+        </member>
+        <member name="M:IntXLib.StringConverterBase.ToString(IntXLib.IntX,System.UInt32,System.Char[])">
+            <summary>
+            Returns string representation of <see cref="T:IntXLib.IntX"/> object in given base.
+            </summary>
+            <param name="intX">Big integer to convert.</param>
+            <param name="numberBase">Base of system in which to do output.</param>
+            <param name="alphabet">Alphabet which contains chars used to represent big integer, char position is coresponding digit value.</param>
+            <returns>Object string representation.</returns>
+            <exception cref="T:System.ArgumentException"><paramref name="numberBase"/> is less then 2 or <paramref name="intX"/> is too big to fit in string.</exception>
+        </member>
+        <member name="M:IntXLib.StringConverterBase.ToString(System.UInt32[],System.UInt32,System.UInt32,System.UInt32@)">
+            <summary>
+            Converts digits from internal representaion into given base.
+            </summary>
+            <param name="digits">Big integer digits.</param>
+            <param name="length">Big integer length.</param>
+            <param name="numberBase">Base to use for output.</param>
+            <param name="outputLength">Calculated output length (will be corrected inside).</param>
+            <returns>Conversion result (later will be transformed to string).</returns>
+        </member>
+        <member name="M:IntXLib.ClassicStringConverter.#ctor(IntXLib.IStringConverter)">
+            <summary>
+            Creates new <see cref="T:IntXLib.ClassicStringConverter"/> instance.
+            </summary>
+            <param name="pow2StringConverter">Converter for pow2 case.</param>
+        </member>
+        <member name="M:IntXLib.ClassicStringConverter.ToString(System.UInt32[],System.UInt32,System.UInt32,System.UInt32@)">
+            <summary>
+            Converts digits from internal representaion into given base.
+            </summary>
+            <param name="digits">Big integer digits.</param>
+            <param name="length">Big integer length.</param>
+            <param name="numberBase">Base to use for output.</param>
+            <param name="outputLength">Calculated output length (will be corrected inside).</param>
+            <returns>Conversion result (later will be transformed to string).</returns>
+        </member>
+        <member name="T:IntXLib.FastStringConverter">
+            <summary>
+            Fast ToString converting algorithm using divide-by-two.
+            </summary>
+        </member>
+        <member name="M:IntXLib.FastStringConverter.#ctor(IntXLib.IStringConverter,IntXLib.IStringConverter)">
+            <summary>
+            Creates new <see cref="T:IntXLib.FastStringConverter"/> instance.
+            </summary>
+            <param name="pow2StringConverter">Converter for pow2 case.</param>
+            <param name="classicStringConverter">Classic converter.</param>
+        </member>
+        <member name="M:IntXLib.FastStringConverter.ToString(System.UInt32[],System.UInt32,System.UInt32,System.UInt32@)">
+            <summary>
+            Converts digits from internal representaion into given base.
+            </summary>
+            <param name="digits">Big integer digits.</param>
+            <param name="length">Big integer length.</param>
+            <param name="numberBase">Base to use for output.</param>
+            <param name="outputLength">Calculated output length (will be corrected inside).</param>
+            <returns>Conversion result (later will be transformed to string).</returns>
+        </member>
+        <member name="T:IntXLib.Pow2StringConverter">
+            <summary>
+            Provides special fast (with linear time) ToString converting if base is pow of 2.
+            </summary>
+        </member>
+        <member name="M:IntXLib.Pow2StringConverter.ToString(System.UInt32[],System.UInt32,System.UInt32,System.UInt32@)">
+            <summary>
+            Converts digits from internal representaion into given base.
+            </summary>
+            <param name="digits">Big integer digits.</param>
+            <param name="length">Big integer length.</param>
+            <param name="numberBase">Base to use for output.</param>
+            <param name="outputLength">Calculated output length (will be corrected inside).</param>
+            <returns>Conversion result (later will be transformed to string).</returns>
+        </member>
+        <member name="T:IntXLib.StringConvertManager">
+            <summary>
+            Used to retrieve needed ToString converter.
+            </summary>
+        </member>
+        <member name="F:IntXLib.StringConvertManager.ClassicStringConverter">
+            <summary>
+            Classic converter instance.
+            </summary>
+        </member>
+        <member name="F:IntXLib.StringConvertManager.FastStringConverter">
+            <summary>
+            Fast converter instance.
+            </summary>
+        </member>
+        <member name="M:IntXLib.StringConvertManager.GetStringConverter(IntXLib.ToStringMode)">
+            <summary>
+            Returns ToString converter instance for given ToString mode.
+            </summary>
+            <param name="mode">ToString mode.</param>
+            <returns>Converter instance.</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"><paramref name="mode"/> is out of range.</exception>
+        </member>
+        <member name="T:IntXLib.Constants">
+            <summary>
+            Constants used in <see cref="T:IntXLib.IntX"/> and helping classes.
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.DigitOpeningBracet">
+            <summary>
+            Digit opening bracet (used for bases bigger then 16).
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.DigitClosingBracet">
+            <summary>
+            Digit closing bracet (used for bases bigger then 16).
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.DigitsMinusChar">
+            <summary>
+            Minus char (-).
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.MinPooledArraySizeLog2">
+            <summary>
+            Minimal Log2(array length) which will be pooled using any array pool.
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.MaxPooledArraySizeLog2">
+            <summary>
+            Maximal Log2(array length) which will be pooled using any array pool.
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.MaxArrayPoolCount">
+            <summary>
+            Maximal allowed array pool items count in each stack.
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.AutoFhtLengthLowerBound">
+            <summary>
+            <see cref="T:IntXLib.IntX"/> length from which FHT is used (in auto-FHT mode).
+            Before this length usual multiply algorithm works faster.
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.AutoFhtLengthUpperBound">
+            <summary>
+            <see cref="T:IntXLib.IntX"/> length 'till which FHT is used (in auto-FHT mode).
+            After this length using of FHT may be unsafe due to big precision errors.
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.FhtValidityCheckDigitCount">
+            <summary>
+            Number of lower digits used to check FHT multiplication result validity.
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.AutoNewtonLengthLowerBound">
+            <summary>
+            <see cref="T:IntXLib.IntX"/> length from which Newton approach is used (in auto-Newton mode).
+            Before this length usual divide algorithm works faster.
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.AutoNewtonLengthUpperBound">
+            <summary>
+            <see cref="T:IntXLib.IntX"/> length 'till which Newton approach is used (in auto-Newton mode).
+            After this length using of fast division may be slow.
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.FastParseLengthLowerBound">
+            <summary>
+            <see cref="T:IntXLib.IntX"/> length from which fast parsing is used (in Fast parsing mode).
+            Before this length usual parsing algorithm works faster.
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.FastParseLengthUpperBound">
+            <summary>
+            <see cref="T:IntXLib.IntX"/> length 'till which fast parsing is used (in Fast parsing mode).
+            After this length using of parsing will be slow.
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.FastConvertLengthLowerBound">
+            <summary>
+            <see cref="T:IntXLib.IntX"/> length from which fast convertion is used (in Fast convert mode).
+            Before this length usual convertion algorithm works faster.
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.FastConvertLengthUpperBound">
+            <summary>
+            <see cref="T:IntXLib.IntX"/> length 'till which fast convertion is used (in Fast convert mode).
+            After this length using of convertion will be slow.
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.DigitBitCount">
+            <summary>
+            Count of bits in one <see cref="T:IntXLib.IntX"/> digit.
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.MaxBitCount">
+            <summary>
+            Maximum count of bits which can fit in <see cref="T:IntXLib.IntX"/>.
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.BitCountStepOf2">
+            <summary>
+            2^<see cref="F:IntXLib.Constants.DigitBitCount"/>.
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.BaseUpperChars">
+            <summary>
+            Chars used to parse/output big integers (upper case).
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.BaseLowerChars">
+            <summary>
+            Chars used to parse/output big integers (lower case).
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.BaseCharToDigits">
+            <summary>
+            Standard char->digit dictionary.
+            </summary>
+        </member>
+        <member name="F:IntXLib.Constants.DigitBaseLog">
+            <summary>
+            Natural logarithm of digits base (log(2^32)).
+            </summary>
+        </member>
+        <member name="T:IntXLib.ArrayPool`1">
+            <summary>
+            Generic arrays pool on weak references.
+            </summary>
+        </member>
+        <member name="F:IntXLib.ArrayPool`1.Instance">
+            <summary>
+            Singleton instance.
+            </summary>
+        </member>
+        <member name="M:IntXLib.ArrayPool`1.GetArray(System.UInt32)">
+            <summary>
+            Either returns array of given size from pool or creates it.
+            </summary>
+            <param name="length">Array length (always pow of 2).</param>
+            <returns>Always array instance ready to use.</returns>
+        </member>
+        <member name="M:IntXLib.ArrayPool`1.AddArray(`0[])">
+            <summary>
+            Adds array to pool.
+            </summary>
+            <param name="array">Array to add (it/s length is always pow of 2).</param>
+        </member>
+        <member name="T:IntXLib.FhtMultiplicationException">
+            <summary>
+            Used when FHT multiplication result is incorrect.
+            </summary>
+        </member>
+        <member name="M:IntXLib.FhtMultiplicationException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:IntXLib.FhtMultiplicationException"/> class with a specified error message.
+            </summary>
+            <param name="message">A message that describes the error.</param>
+        </member>
+        <member name="M:IntXLib.FhtMultiplicationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:IntXLib.FhtMultiplicationException"/> class with serialized data.
+            </summary>
+            <param name="info">The object that holds the serialized object data.</param>
+            <param name="context">The contextual information about the source or destination.</param>
+        </member>
+        <member name="T:IntXLib.DivModResultFlags">
+            <summary>
+            <see cref="T:IntXLib.IntX"/> divide results to return.
+            </summary>
+        </member>
+        <member name="F:IntXLib.DivModResultFlags.Div">
+            <summary>
+            Divident is returned.
+            </summary>
+        </member>
+        <member name="F:IntXLib.DivModResultFlags.Mod">
+            <summary>
+            Remainder is returned.
+            </summary>
+        </member>
+        <member name="T:IntXLib.MultiplyMode">
+            <summary>
+            Big integers multiply mode used in <see cref="T:IntXLib.IntX"/>.
+            </summary>
+        </member>
+        <member name="F:IntXLib.MultiplyMode.AutoFht">
+            <summary>
+            FHT (Fast Hartley Transform) is used for really big integers.
+            Time estimate is O(n * log n).
+            Default mode.
+            </summary>
+        </member>
+        <member name="F:IntXLib.MultiplyMode.Classic">
+            <summary>
+            Classic method is used.
+            Time estimate is O(n ^ 2).
+            </summary>
+        </member>
+        <member name="T:IntXLib.DivideMode">
+            <summary>
+            Big integers divide mode used in <see cref="T:IntXLib.IntX"/>.
+            </summary>
+        </member>
+        <member name="F:IntXLib.DivideMode.AutoNewton">
+            <summary>
+            Newton approximation algorithm is used for really big integers.
+            Time estimate is same as for multiplication.
+            Default mode.
+            </summary>
+        </member>
+        <member name="F:IntXLib.DivideMode.Classic">
+            <summary>
+            Classic method is used.
+            Time estimate is O(n ^ 2).
+            </summary>
+        </member>
+        <member name="T:IntXLib.ParseMode">
+            <summary>
+            Big integers parsing mode used in <see cref="T:IntXLib.IntX"/>.
+            </summary>
+        </member>
+        <member name="F:IntXLib.ParseMode.Fast">
+            <summary>
+            Fast method which uses divide-by-two approach and fast multiply to parse numbers.
+            Time estimate is O(n * [log n]^2).
+            Default mode.
+            </summary>
+        </member>
+        <member name="F:IntXLib.ParseMode.Classic">
+            <summary>
+            Classic method is used (using multiplication).
+            Time estimate is O(n ^ 2).
+            </summary>
+        </member>
+        <member name="T:IntXLib.ToStringMode">
+            <summary>
+            Big integers to string conversion mode used in <see cref="T:IntXLib.IntX"/>.
+            </summary>
+        </member>
+        <member name="F:IntXLib.ToStringMode.Fast">
+            <summary>
+            Fast method which uses divide-by-two approach to convert numbers.
+            Default mode.
+            </summary>
+        </member>
+        <member name="F:IntXLib.ToStringMode.Classic">
+            <summary>
+            Classic method is used (using division).
+            Time estimate is O(n ^ 2).
+            </summary>
+        </member>
+        <member name="T:IntXLib.Strings">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:IntXLib.Strings.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:IntXLib.Strings.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:IntXLib.Strings.AlphabetRepeatingChars">
+            <summary>
+              Looks up a localized string similar to Alphabet characters must be unique..
+            </summary>
+        </member>
+        <member name="P:IntXLib.Strings.AlphabetTooSmall">
+            <summary>
+              Looks up a localized string similar to Alphabet is too small to represent numbers in base {0}..
+            </summary>
+        </member>
+        <member name="P:IntXLib.Strings.CantBeNull">
+            <summary>
+              Looks up a localized string similar to Operands can&apos;t be null..
+            </summary>
+        </member>
+        <member name="P:IntXLib.Strings.CantBeNullCmp">
+            <summary>
+              Looks up a localized string similar to Can&apos;t use null in comparsion operations..
+            </summary>
+        </member>
+        <member name="P:IntXLib.Strings.CantBeNullOne">
+            <summary>
+              Looks up a localized string similar to Operand can&apos;t be null..
+            </summary>
+        </member>
+        <member name="P:IntXLib.Strings.CantCmp">
+            <summary>
+              Looks up a localized string similar to Can&apos;t compare with provided argument..
+            </summary>
+        </member>
+        <member name="P:IntXLib.Strings.DigitBytesLengthInvalid">
+            <summary>
+              Looks up a localized string similar to Digit bytes array length is invalid..
+            </summary>
+        </member>
+        <member name="P:IntXLib.Strings.FhtMultiplicationError">
+            <summary>
+              Looks up a localized string similar to FHT multiplication returned invalid result for IntX objects with lengths {0} and {1}..
+            </summary>
+        </member>
+        <member name="P:IntXLib.Strings.IntegerTooBig">
+            <summary>
+              Looks up a localized string similar to One of the operated big integers is too big..
+            </summary>
+        </member>
+        <member name="P:IntXLib.Strings.ParseBaseInvalid">
+            <summary>
+              Looks up a localized string similar to Base is invalid..
+            </summary>
+        </member>
+        <member name="P:IntXLib.Strings.ParseInvalidChar">
+            <summary>
+              Looks up a localized string similar to Invalid character in input..
+            </summary>
+        </member>
+        <member name="P:IntXLib.Strings.ParseNoDigits">
+            <summary>
+              Looks up a localized string similar to No digits in string..
+            </summary>
+        </member>
+        <member name="P:IntXLib.Strings.ParseTooBigDigit">
+            <summary>
+              Looks up a localized string similar to Digit is too big for this base..
+            </summary>
+        </member>
+        <member name="P:IntXLib.Strings.ToStringSmallBase">
+            <summary>
+              Looks up a localized string similar to Base must be between 2 and 65536..
+            </summary>
+        </member>
+    </members>
+</doc>
