@@ -336,23 +336,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1240443942 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1631893145635948, guid: 02e37f97df7ed8d459e06fd7c4e9e5df,
-    type: 2}
-  m_PrefabInternal: {fileID: 1608658092}
---- !u!114 &1240443943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1240443942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 210105714, guid: 7db6937f49a958c48913d38b99825455, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NetworkedPrefabName: Sphere
 --- !u!1 &1248140278
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,7 +374,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1248140278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1513883267, guid: 7db6937f49a958c48913d38b99825455, type: 3}
+  m_Script: {fileID: -1513883267, guid: 21c7301987155c0499132f8dc0b202f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DontDestroy: 1
@@ -413,6 +396,7 @@ MonoBehaviour:
       playerPrefab: 0
     - prefab: {fileID: 1595020433191848, guid: 03a297f61fe3ef344989473054d7a493, type: 2}
       playerPrefab: 0
+    PlayerPrefabName: ThirdPersonController
     MessageBufferSize: 65535
     ReceiveTickrate: 64
     MaxReceiveEventsPerTickRate: 500
@@ -450,18 +434,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1595020433191848, guid: 03a297f61fe3ef344989473054d7a493,
     type: 2}
   m_PrefabInternal: {fileID: 981778847}
---- !u!114 &1357008820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1357008819}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 210105714, guid: 7db6937f49a958c48913d38b99825455, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NetworkedPrefabName: Cube
 --- !u!114 &1357008826
 MonoBehaviour:
   m_ObjectHideFlags: 0

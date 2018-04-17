@@ -418,10 +418,10 @@ GameObject:
   - component: {fileID: 114698291518126988}
   - component: {fileID: 114898651689047266}
   - component: {fileID: 114246527999092684}
-  - component: {fileID: 114689526683238602}
-  - component: {fileID: 114520651828922736}
-  - component: {fileID: 114538156133913828}
-  - component: {fileID: 114416179613421282}
+  - component: {fileID: 114766929903620868}
+  - component: {fileID: 114687023312749170}
+  - component: {fileID: 114639041936224248}
+  - component: {fileID: 114491358826367966}
   m_Layer: 0
   m_Name: ThirdPersonController
   m_TagString: Untagged
@@ -2559,7 +2559,7 @@ MonoBehaviour:
   cubePrefab: {fileID: 1595020433191848, guid: 03a297f61fe3ef344989473054d7a493, type: 2}
   spherePrefab: {fileID: 1631893145635948, guid: 02e37f97df7ed8d459e06fd7c4e9e5df,
     type: 2}
---- !u!114 &114416179613421282
+--- !u!114 &114491358826367966
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2567,7 +2567,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 1329915689972608}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -99089794, guid: 7db6937f49a958c48913d38b99825455, type: 3}
+  m_Script: {fileID: -1450621975, guid: 21c7301987155c0499132f8dc0b202f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114639041936224248
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1329915689972608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 709242334, guid: 21c7301987155c0499132f8dc0b202f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncVarSyncDelay: 0.1
+  SendsPerSecond: 20
+  AssumeSyncedSends: 1
+  InterpolatePosition: 1
+  SnapDistance: 10
+  InterpolateServer: 1
+  MinMeters: 0.15
+  MinDegrees: 1.5
+  EnableProximity: 0
+  ProximityRange: 50
+--- !u!114 &114687023312749170
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1329915689972608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -99089794, guid: 21c7301987155c0499132f8dc0b202f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SyncVarSyncDelay: 0.1
@@ -2581,50 +2613,6 @@ MonoBehaviour:
   param3: 
   param4: 
   param5: 
---- !u!114 &114520651828922736
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1329915689972608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1450621975, guid: 7db6937f49a958c48913d38b99825455, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114538156133913828
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1329915689972608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 709242334, guid: 7db6937f49a958c48913d38b99825455, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SyncVarSyncDelay: 0.1
-  SendsPerSecond: 20
-  AssumeSyncedSends: 1
-  InterpolatePosition: 1
-  SnapDistance: 10
-  InterpolateServer: 1
-  MinMeters: 0.15
-  MinDegrees: 1.5
-  EnableProximity: 0
-  ProximityRange: 50
---- !u!114 &114689526683238602
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1329915689972608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 210105714, guid: 7db6937f49a958c48913d38b99825455, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NetworkedPrefabName: ThirdPersonController
 --- !u!114 &114698291518126988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2637,6 +2625,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SyncVarSyncDelay: 0.1
+--- !u!114 &114766929903620868
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1329915689972608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 210105714, guid: 21c7301987155c0499132f8dc0b202f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NetworkedPrefabName: ThirdPersonController
 --- !u!114 &114806180797208620
 MonoBehaviour:
   m_ObjectHideFlags: 1
