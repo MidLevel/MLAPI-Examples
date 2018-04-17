@@ -13,14 +13,12 @@ namespace UnityEditor
     {
         private bool initialized;
         protected List<string> syncedVarNames = new List<string>();
-        private Type scriptClass;
 
         private GUIContent syncedVarLabelGuiContent;
 
         private void Init(MonoScript script)
         {
             initialized = true;
-            scriptClass = script.GetClass();
 
             syncedVarLabelGuiContent = new GUIContent("SyncedVar", "This variable has been marked with the [SyncedVar] attribute.");
 

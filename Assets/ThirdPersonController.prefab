@@ -417,10 +417,11 @@ GameObject:
   - component: {fileID: 136804066522374734}
   - component: {fileID: 114698291518126988}
   - component: {fileID: 114898651689047266}
-  - component: {fileID: 114637313509609662}
-  - component: {fileID: 114072469942895892}
-  - component: {fileID: 114807073951046190}
   - component: {fileID: 114246527999092684}
+  - component: {fileID: 114689526683238602}
+  - component: {fileID: 114520651828922736}
+  - component: {fileID: 114538156133913828}
+  - component: {fileID: 114416179613421282}
   m_Layer: 0
   m_Name: ThirdPersonController
   m_TagString: Untagged
@@ -2541,18 +2542,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114072469942895892
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1329915689972608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 210105714, guid: 1e8708ab61930764caf7a38dd98a6365, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ServerOnly: 0
 --- !u!114 &114246527999092684
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2567,7 +2556,10 @@ MonoBehaviour:
   SyncVarSyncDelay: 0.1
   MySyncedName: 
   TextField: {fileID: 114806180797208620}
---- !u!114 &114637313509609662
+  cubePrefab: {fileID: 1595020433191848, guid: 03a297f61fe3ef344989473054d7a493, type: 2}
+  spherePrefab: {fileID: 1631893145635948, guid: 02e37f97df7ed8d459e06fd7c4e9e5df,
+    type: 2}
+--- !u!114 &114416179613421282
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2575,7 +2567,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 1329915689972608}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 709242334, guid: 1e8708ab61930764caf7a38dd98a6365, type: 3}
+  m_Script: {fileID: -99089794, guid: 7db6937f49a958c48913d38b99825455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncVarSyncDelay: 0.1
+  EnableProximity: 0
+  ProximityRange: 50
+  _animator: {fileID: 95538621675585322}
+  parameterSendBits: 63
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
+--- !u!114 &114520651828922736
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1329915689972608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1450621975, guid: 7db6937f49a958c48913d38b99825455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114538156133913828
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1329915689972608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 709242334, guid: 7db6937f49a958c48913d38b99825455, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SyncVarSyncDelay: 0.1
@@ -2588,6 +2613,18 @@ MonoBehaviour:
   MinDegrees: 1.5
   EnableProximity: 0
   ProximityRange: 50
+--- !u!114 &114689526683238602
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1329915689972608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 210105714, guid: 7db6937f49a958c48913d38b99825455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NetworkedPrefabName: ThirdPersonController
 --- !u!114 &114698291518126988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2633,28 +2670,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 
---- !u!114 &114807073951046190
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1329915689972608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -99089794, guid: 1e8708ab61930764caf7a38dd98a6365, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SyncVarSyncDelay: 0.1
-  EnableProximity: 0
-  ProximityRange: 50
-  _animator: {fileID: 95538621675585322}
-  parameterSendBits: 63
-  param0: 
-  param1: 
-  param2: 
-  param3: 
-  param4: 
-  param5: 
 --- !u!114 &114832705180901884
 MonoBehaviour:
   m_ObjectHideFlags: 1

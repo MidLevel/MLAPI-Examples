@@ -1,6 +1,7 @@
 ﻿using MLAPI;
 using MLAPI.MonoBehaviours.Core;
 using MLAPI.NetworkingManagerComponents;
+using MLAPI.NetworkingManagerComponents.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

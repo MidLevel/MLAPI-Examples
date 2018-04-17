@@ -1,4 +1,5 @@
 ﻿using MLAPI;
+using MLAPI.Data;
 using MLAPI.MonoBehaviours.Core;
 using System.Net;
 using UnityEngine;
@@ -9,55 +10,17 @@ public class NetManagerHud : MonoBehaviour {
     {
         if (GUI.Button(new Rect(20, 20, 100, 20), "Start client"))
         {
-            NetworkingConfiguration config = new NetworkingConfiguration()
-            {
-                Address = "127.0.0.1",
-                Port = 7777,
-            };
-            config.RegisteredScenes = new System.Collections.Generic.List<string>();
-            config.RegisteredScenes.Add("MenuScene");
-            config.RegisteredScenes.Add("PlayScene");
-            config.EnableSceneSwitching = false;
-            config.EnableEncryption = false;
-            NetworkingManager.singleton.StartClient(config);
+            NetworkingManager.singleton.StartClient();
         }
 
         if (GUI.Button(new Rect(20, 70, 100, 20), "Start server"))
         {
-            NetworkingConfiguration config = new NetworkingConfiguration()
-            {
-                Address = "127.0.0.1",
-                Port = 7777,
-            };
-            config.RegisteredScenes = new System.Collections.Generic.List<string>();
-            config.RegisteredScenes.Add("MenuScene");
-            config.RegisteredScenes.Add("PlayScene");
-            config.EnableSceneSwitching = false;
-            config.EnableEncryption = false;
-            NetworkingManager.singleton.StartServer(config);
+            NetworkingManager.singleton.StartServer();
         }
 
         if (GUI.Button(new Rect(20, 120, 100, 20), "Start host"))
         {
-            NetworkingConfiguration config = new NetworkingConfiguration()
-            {
-                Address = "127.0.0.1",
-                Port = 7777,
-            };
-            config.RegisteredScenes = new System.Collections.Generic.List<string>();
-            config.RegisteredScenes.Add("MenuScene");
-            config.RegisteredScenes.Add("PlayScene");
-            config.EnableSceneSwitching = false;
-            config.EnableEncryption = false;
-            NetworkingManager.singleton.StartHost(config);
+            NetworkingManager.singleton.StartHost();
         }
-    }
-
-    private void OnUPnPComplete(bool success, IPAddress ipAddress)
-    {
-        //Did UPNP succeed
-        Debug.Log(success);
-        //If it succeded. This is the public ip address
-        Debug.Log(ipAddress);
     }
 }

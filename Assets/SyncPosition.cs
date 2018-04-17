@@ -12,11 +12,11 @@ public class SyncPosition : NetworkedBehaviour
     {
         if(isServer)
         {
-            RegisterMessageHandler("PositionUpdate", OnRecievePositionUpdate);
+           // RegisterMessageHandler("PositionUpdate", OnRecievePositionUpdate);
         }
         if(isClient)
         {
-            RegisterMessageHandler("SetClientPosition", OnSetClientPosition);
+           // RegisterMessageHandler("SetClientPosition", OnSetClientPosition);
         }
     }
 
@@ -42,7 +42,7 @@ public class SyncPosition : NetworkedBehaviour
     }
 
     //This gets called on all clients except the one the position update is about.
-    void OnSetClientPosition(int clientId, byte[] data)
+    void OnSetClientPosition(uint clientId, byte[] data)
     {
         using (MemoryStream stream = new MemoryStream(data))
         {
@@ -60,7 +60,7 @@ public class SyncPosition : NetworkedBehaviour
     }
 
     //This gets called on the server when a client sends it's position.
-    void OnRecievePositionUpdate(int clientId, byte[] data)
+    void OnRecievePositionUpdate(uint clientId, byte[] data)
     {
         //This makes it behave like a HLAPI Command. It's only invoked on the same object that called it.
         if (clientId != ownerClientId)
