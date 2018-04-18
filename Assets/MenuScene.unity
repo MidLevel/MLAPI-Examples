@@ -385,8 +385,13 @@ MonoBehaviour:
     - Name: UDP Socket
       Port: 7777
       Websockets: 0
-    Channels: []
-    MessageTypes: []
+    Channels:
+    - Name: ColorChannel
+      Type: 3
+      Encrypted: 0
+    MessageTypes:
+    - Name: OnChangeColor
+      Passthrough: 0
     RegisteredScenes:
     - MenuScene
     NetworkedPrefabs:

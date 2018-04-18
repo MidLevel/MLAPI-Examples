@@ -421,7 +421,6 @@ GameObject:
   - component: {fileID: 114766929903620868}
   - component: {fileID: 114687023312749170}
   - component: {fileID: 114639041936224248}
-  - component: {fileID: 114491358826367966}
   m_Layer: 0
   m_Name: ThirdPersonController
   m_TagString: Untagged
@@ -1997,7 +1996,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1880393464162266}
-  m_LocalRotation: {x: 0.5326752, y: 0.070340455, z: 0.83613276, w: -0.110415146}
+  m_LocalRotation: {x: 0.53267515, y: 0.07034045, z: 0.83613265, w: -0.11041513}
   m_LocalPosition: {x: 0.000022271464, y: -0.00006150465, z: 0.026027026}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2559,17 +2558,6 @@ MonoBehaviour:
   cubePrefab: {fileID: 1595020433191848, guid: 03a297f61fe3ef344989473054d7a493, type: 2}
   spherePrefab: {fileID: 1631893145635948, guid: 02e37f97df7ed8d459e06fd7c4e9e5df,
     type: 2}
---- !u!114 &114491358826367966
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1329915689972608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1450621975, guid: 21c7301987155c0499132f8dc0b202f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114639041936224248
 MonoBehaviour:
   m_ObjectHideFlags: 1
