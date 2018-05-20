@@ -1,6 +1,5 @@
-﻿using MLAPI.MonoBehaviours.Core;
-using System.Collections;
-using System.Collections.Generic;
+﻿using MLAPI;
+using MLAPI.MonoBehaviours.Core;
 using UnityEngine;
 
 public class NetSpawntest : NetworkedBehaviour

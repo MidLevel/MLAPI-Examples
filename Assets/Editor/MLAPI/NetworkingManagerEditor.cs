@@ -1,7 +1,8 @@
-﻿using MLAPI.MonoBehaviours.Core;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using UnityEditorInternal;
+using MLAPI;
+using MLAPI.MonoBehaviours.Core;
 
 [CustomEditor(typeof(NetworkingManager), true)]
 [CanEditMultipleObjects]
@@ -59,7 +60,7 @@ public class NetworkingManagerEditor : Editor
             else if (networkingManager.isClient)
                 instanceType = "Client";
 
-            EditorGUILayout.HelpBox("You cannot edit the NetworkConfig when a " + instanceType + " is running", MessageType.Info);
+            EditorGUILayout.HelpBox("You cannot edit the NetworkConfig when a " + instanceType + " is running", UnityEditor.MessageType.Info);
             if (GUILayout.Toggle(false, "Stop " + instanceType, EditorStyles.miniButtonMid))
             {
                 if (networkingManager.isHost)

@@ -112,7 +112,49 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: b59c578feb0504a4ca6da897408768ef, type: 2}
+--- !u!1001 &276885246
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4276097773187736, guid: a78b2c593109cb64a9b9ce61635616f2, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276097773187736, guid: a78b2c593109cb64a9b9ce61635616f2, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276097773187736, guid: a78b2c593109cb64a9b9ce61635616f2, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276097773187736, guid: a78b2c593109cb64a9b9ce61635616f2, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276097773187736, guid: a78b2c593109cb64a9b9ce61635616f2, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276097773187736, guid: a78b2c593109cb64a9b9ce61635616f2, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276097773187736, guid: a78b2c593109cb64a9b9ce61635616f2, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4276097773187736, guid: a78b2c593109cb64a9b9ce61635616f2, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: a78b2c593109cb64a9b9ce61635616f2, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &558106516
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,7 +308,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!23 &1051946413
 MeshRenderer:
@@ -379,27 +421,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DontDestroy: 1
   RunInBackground: 1
+  LogLevel: 1
   NetworkConfig:
     ProtocolVersion: 0
-    ServerTransports:
-    - Name: UDP Socket
-      Port: 7777
-      Websockets: 0
-    Channels:
-    - Name: ColorChannel
-      Type: 3
-      Encrypted: 0
-    MessageTypes:
-    - Name: OnChangeColor
-      Passthrough: 0
+    Transport: 0
+    Channels: []
+    MessageTypes: []
     RegisteredScenes:
     - MenuScene
     NetworkedPrefabs:
     - prefab: {fileID: 1329915689972608, guid: e76e7324100b55b4884126b83418ebab, type: 2}
       playerPrefab: 1
-    - prefab: {fileID: 1631893145635948, guid: 02e37f97df7ed8d459e06fd7c4e9e5df, type: 2}
-      playerPrefab: 0
     - prefab: {fileID: 1595020433191848, guid: 03a297f61fe3ef344989473054d7a493, type: 2}
+      playerPrefab: 0
+    - prefab: {fileID: 1860305535666550, guid: a78b2c593109cb64a9b9ce61635616f2, type: 2}
+      playerPrefab: 0
+    - prefab: {fileID: 1631893145635948, guid: 02e37f97df7ed8d459e06fd7c4e9e5df, type: 2}
       playerPrefab: 0
     PlayerPrefabName: ThirdPersonController
     MessageBufferSize: 65535
@@ -422,6 +459,7 @@ MonoBehaviour:
     AllowPassthroughMessages: 1
     EnableSceneSwitching: 1
     EnableTimeResync: 0
+    AttributeMessageMode: 0
   RegenerateRSAKeys: 0
 --- !u!114 &1248140281
 MonoBehaviour:
@@ -450,7 +488,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4935211a2819a6d4fa94ff9c9ddca073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SyncVarSyncDelay: 0.1
 --- !u!1 &1569011444
 GameObject:
   m_ObjectHideFlags: 0

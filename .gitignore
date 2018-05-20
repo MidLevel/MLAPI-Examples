@@ -33,10 +33,7 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
-Assets/MLAPI.dll.meta
-Assets/UnityEngine.dll*
-Assets/UnityEngine.xml*
-Assets/Open.Nat.dll.meta
-Assets/Open.Nat.xml*
-Assets/System.Threading.dll.meta
-Assets/System.Threading.xml*
+Assets/MLAPI/Lib/MLAPI.dll.meta
+Assets/MLAPI/Lib/UnityEngine*
+Assets/MLAPI/Lib/LiteNetLib*
+Assets/MLAPI/Lib/IntXLib*

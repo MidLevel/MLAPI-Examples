@@ -1,7 +1,5 @@
 ﻿using MLAPI;
-using MLAPI.Data;
 using MLAPI.MonoBehaviours.Core;
-using System.Net;
 using UnityEngine;
 
 public class NetManagerHud : MonoBehaviour {
