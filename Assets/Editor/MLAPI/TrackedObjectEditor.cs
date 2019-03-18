@@ -1,5 +1,4 @@
-﻿using MLAPI.MonoBehaviours.Core;
-using UnityEngine;
+﻿using MLAPI;
 
 namespace UnityEditor
 {
@@ -23,10 +22,11 @@ namespace UnityEditor
         {
             Init();
             base.OnInspectorGUI();
-            if(NetworkingManager.singleton != null && NetworkingManager.singleton.isServer)
+            if(NetworkingManager.Singleton != null && NetworkingManager.Singleton.IsServer)
             {
                 EditorGUILayout.LabelField("Total points: ", trackedObject.TotalPoints.ToString(), EditorStyles.label);
                 EditorGUILayout.LabelField("Avg time between points: ", trackedObject.AvgTimeBetweenPointsMs.ToString() + " ms", EditorStyles.label);
+                EditorGUILayout.LabelField("Total history: ", trackedObject.TotalTimeHistory.ToString() + " seconds", EditorStyles.label);
             }
             Repaint();
         }

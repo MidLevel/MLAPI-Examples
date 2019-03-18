@@ -1,4 +1,5 @@
-﻿using MLAPI.MonoBehaviours.Core;
+﻿using System.Collections.Generic;
+using MLAPI;
 using UnityEngine;
 
 namespace UnityEditor
@@ -9,6 +10,7 @@ namespace UnityEditor
     {
         private bool initialized;
         private NetworkedObject networkedObject;
+        private bool showObservers;
 
         private void Init()
         {
@@ -21,10 +23,10 @@ namespace UnityEditor
         public override void OnInspectorGUI()
         {
             Init();
-            if (NetworkingManager.singleton == null || (!NetworkingManager.singleton.isServer && !NetworkingManager.singleton.isClient))
+            if (NetworkingManager.Singleton == null || (!NetworkingManager.Singleton.IsServer && !NetworkingManager.Singleton.IsClient))
                 base.OnInspectorGUI(); //Only run this if we are NOT running server. This is where the ServerOnly box is drawn
 
-            if (!networkedObject.isSpawned && NetworkingManager.singleton != null && NetworkingManager.singleton.isServer)
+            if (!networkedObject.IsSpawned && NetworkingManager.Singleton != null && NetworkingManager.Singleton.IsServer)
             {
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField(new GUIContent("Spawn", "Spawns the object across the network"));
@@ -35,16 +37,41 @@ namespace UnityEditor
                 }
                 EditorGUILayout.EndHorizontal();
             }
-            else if(networkedObject.isSpawned)
+            else if (networkedObject.IsSpawned)
             {
+                EditorGUILayout.LabelField("PrefabHashGenerator: ", networkedObject.PrefabHashGenerator, EditorStyles.label);
+                EditorGUILayout.LabelField("PrefabHash: ", networkedObject.PrefabHash.ToString(), EditorStyles.label);
+                EditorGUILayout.LabelField("InstanceId: ", networkedObject.NetworkedInstanceId.ToString(), EditorStyles.label);
                 EditorGUILayout.LabelField("NetworkId: ", networkedObject.NetworkId.ToString(), EditorStyles.label);
                 EditorGUILayout.LabelField("OwnerId: ", networkedObject.OwnerClientId.ToString(), EditorStyles.label);
-                EditorGUILayout.LabelField("isSpawned: ", networkedObject.isSpawned.ToString(), EditorStyles.label);
-                EditorGUILayout.LabelField("isLocalPlayer: ", networkedObject.isLocalPlayer.ToString(), EditorStyles.label);
-                EditorGUILayout.LabelField("isOwner: ", networkedObject.isOwner.ToString(), EditorStyles.label);
-                EditorGUILayout.LabelField("isPoolObject: ", networkedObject.isPlayerObject.ToString(), EditorStyles.label);
-                EditorGUILayout.LabelField("isPlayerObject: ", networkedObject.isPlayerObject.ToString(), EditorStyles.label);
-                //EditorGUILayout.LabelField("ServerOnly: ", networkedObject.ServerOnly.ToString(), EditorStyles.label);
+                EditorGUILayout.LabelField("IsSpawned: ", networkedObject.IsSpawned.ToString(), EditorStyles.label);
+                EditorGUILayout.LabelField("IsLocalPlayer: ", networkedObject.IsLocalPlayer.ToString(), EditorStyles.label);
+                EditorGUILayout.LabelField("IsOwner: ", networkedObject.IsOwner.ToString(), EditorStyles.label);
+				EditorGUILayout.LabelField("IsOwnedByServer: ", networkedObject.IsOwnedByServer.ToString(), EditorStyles.label);
+                EditorGUILayout.LabelField("IsPlayerObject: ", networkedObject.IsPlayerObject.ToString(), EditorStyles.label);
+                EditorGUILayout.LabelField("IsSceneObject: ", (networkedObject.IsSceneObject == null ? "Null" : networkedObject.IsSceneObject.Value.ToString()), EditorStyles.label);
+
+                if (NetworkingManager.Singleton != null && NetworkingManager.Singleton.IsServer)
+                {
+                    showObservers = EditorGUILayout.Foldout(showObservers, "Observers");
+
+                    if (showObservers)
+                    {
+                        HashSet<uint>.Enumerator observerClientIds = networkedObject.GetObservers();
+                    
+                        EditorGUI.indentLevel += 1;
+                        
+                        while (observerClientIds.MoveNext())
+                        {
+                            if (NetworkingManager.Singleton.ConnectedClients[observerClientIds.Current].PlayerObject != null)
+                                EditorGUILayout.ObjectField("ClientId: " + observerClientIds.Current, NetworkingManager.Singleton.ConnectedClients[observerClientIds.Current].PlayerObject, typeof(GameObject), false);
+                            else
+                                EditorGUILayout.TextField("ClientId: " + observerClientIds.Current, EditorStyles.label);
+                        }
+                        
+                        EditorGUI.indentLevel -= 1;
+                    }
+                }
             }
         }
     }
